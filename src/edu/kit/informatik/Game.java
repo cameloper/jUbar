@@ -39,6 +39,10 @@ class Game {
         /**
          * Game is in the second phase, Ceres is on the board as well
          */
-        SECOND
+        SECOND,
+        /**
+         * Game did end
+         */
+        END
     }
 }
