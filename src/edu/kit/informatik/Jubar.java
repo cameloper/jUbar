@@ -1,6 +1,6 @@
 package edu.kit.informatik;
 
-public class Main {
+public class Jubar {
 
     /**
      * First responder of our program that will handle all user input.
