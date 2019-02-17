@@ -10,7 +10,13 @@ public class Jubar {
         boolean isListening = true;
 
         while (isListening) {
-            // handling of input comes here
+            String input = Terminal.readLine();
+            Result<Operation> operationResult = Operation.buildWith(input);
+
+            if (!operationResult.isSuccessful()) {
+                Terminal.printError(operationResult.error.toString());
+                continue;
+            }
         }
     }
 }
