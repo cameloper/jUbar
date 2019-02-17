@@ -81,4 +81,52 @@ enum Command {
                 return null;
         }
     }
+
+    /**
+     * Gives what kind and how many parameters are expected for this command
+     * @return {@link ParameterType}
+     */
+    ParameterType parameterType() {
+        switch (this) {
+            case PRINT:
+            case SHOW_RESULT:
+            case RESET:
+            case QUIT:
+                return ParameterType.NO_PARAMETER;
+            case ROLL:
+                return ParameterType.SYMBOL;
+            case STATE:
+            case SET_VC:
+                return ParameterType.SINGLE_COORDINATE;
+            case PLACE:
+                return ParameterType.TWO_COORDINATES;
+            case MOVE:
+                return ParameterType.OPT_NUMBER_COORDINATES;
+            default:
+                return null;
+        }
+    }
+
+    enum ParameterType {
+        /**
+         * Command requires no parameters
+         */
+        NO_PARAMETER,
+        /**
+         * Expecting a dice symbol for this command
+         */
+        SYMBOL,
+        /**
+         * Expecting a single coordinate pair (x,y Positions)
+         */
+        SINGLE_COORDINATE,
+        /**
+         * Expecting two coordinate pairs (x,y Positions)
+         */
+        TWO_COORDINATES,
+        /**
+         * Expecting any number of coordinate pairs.
+         */
+        OPT_NUMBER_COORDINATES
+    }
 }

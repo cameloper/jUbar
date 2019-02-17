@@ -1,6 +1,6 @@
 package edu.kit.informatik;
 
-class Operation {
+final class Operation {
     /**
      * The command entered by the user
      */
@@ -51,7 +51,7 @@ class Operation {
      * Validates if the parameters are in a valid format
      * @return true or false
      */
-    boolean validate() {
+    public boolean validate() {
         return false;
     }
 
