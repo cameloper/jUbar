@@ -8,5 +8,9 @@ class Operation {
     /**
      * Given parameters along with the entered command
      */
-    Parameter[] parameters;
+    String[] parameters;
+
+    public static Result<Operation> buildWith(String inputString) {
+        return new Result(null, Error.NO_INPUT);
+    }
 }
