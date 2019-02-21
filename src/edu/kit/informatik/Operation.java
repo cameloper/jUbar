@@ -1,5 +1,7 @@
 package edu.kit.informatik;
 
+import java.util.ArrayList;
+
 final class Operation {
     /**
      * The command entered by the user
@@ -26,8 +28,8 @@ final class Operation {
      * @return {@link Result<Operation>} result of the conversion
      */
     static Result<Operation> buildWith(String inputString) {
-        String stringWithoutWhiteSpaces = inputString.replaceAll(" ","");
-        if (stringWithoutWhiteSpaces == null || stringWithoutWhiteSpaces.length() == 0) {
+        String stringWithoutWhiteSpaces = inputString.replaceAll(" ", "");
+        if (stringWithoutWhiteSpaces.length() == 0) {
             return new Result<>(null, Error.NO_INPUT);
         }
 
@@ -38,22 +40,35 @@ final class Operation {
             return new Result<>(null, Error.INVALID_COMMAND);
         }
 
-        String parameterString = "";
+        String[] parameters;
         if (components.length == 2) {
-            parameterString = components[1];
+            String parameterString = components[1];
+            parameters = parameterString.split(":");
+        } else {
+            parameters = new String[0];
         }
 
-        Operation operation = new Operation(cmd, parameterString.split(":"));
+        Operation operation = new Operation(cmd, parameters);
 
         return new Result<>(operation, null);
     }
 
     /**
      * Validates if the parameters are in a valid format
-     * @return true or false
+     * @return Result with number of parameters entered
      */
-    public boolean validate() {
-        return false;
+    public Result<Integer> validate() {
+        if (command == null || parameters == null) {
+            return new Result<>(null, Error.INVALID_NUMBEROF_PARAMETERS);
+        }
+
+        Command.ParameterType parameterType = command.parameterType();
+
+        if ((parameters.length != parameterType.numberOfParams()) && (!parameterType.numberIsOptional() || parameters.length < 2)) {
+                return new Result<>(null, Error.INVALID_NUMBEROF_PARAMETERS);
+        }
+
+        return new Result<>(parameters.length, null);
     }
 
 }

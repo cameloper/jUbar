@@ -127,6 +127,32 @@ enum Command {
         /**
          * Expecting any number of coordinate pairs.
          */
-        OPT_NUMBER_COORDINATES
+        OPT_NUMBER_COORDINATES;
+
+        /**
+         * Gives the number of parameters this command requires
+         * @return int number of parameters
+         */
+        int numberOfParams() {
+            switch (this) {
+                case NO_PARAMETER:
+                    return 0;
+                case SYMBOL:
+                case SINGLE_COORDINATE:
+                    return 1;
+                case TWO_COORDINATES:
+                    return 2;
+                default:
+                    return -1;
+            }
+        }
+
+        /**
+         * Gives whether the number of parameters
+         * @return boolean
+         */
+        boolean numberIsOptional() {
+            return this.numberOfParams() == -1;
+        }
     }
 }

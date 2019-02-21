@@ -17,6 +17,16 @@ public class Jubar {
                 Terminal.printError(operationResult.error.toString());
                 continue;
             }
+
+            Operation operation = operationResult.value;
+            Result<Integer> validationResult = operation.validate();
+
+            if (!validationResult.isSuccessful()) {
+                Terminal.printError(validationResult.error.toString());
+                continue;
+            }
+
+
         }
     }
 }
