@@ -26,7 +26,8 @@ final class Operation {
      * @return {@link Result<Operation>} result of the conversion
      */
     static Result<Operation> buildWith(String inputString) {
-        if (inputString == null || inputString.length() == 0) {
+        String stringWithoutWhiteSpaces = inputString.replaceAll(" ","");
+        if (stringWithoutWhiteSpaces == null || stringWithoutWhiteSpaces.length() == 0) {
             return new Result<>(null, Error.NO_INPUT);
         }
 
