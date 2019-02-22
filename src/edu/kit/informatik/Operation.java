@@ -1,7 +1,5 @@
 package edu.kit.informatik;
 
-import java.util.ArrayList;
-
 final class Operation {
     /**
      * The command entered by the user
@@ -58,17 +56,37 @@ final class Operation {
      * @return Result with number of parameters entered
      */
     public Result<Integer> validate() {
-        if (command == null || parameters == null) {
+        try {
+            Command.ParameterType parameterType = command.parameterType();
+
+            if ((parameters.length != parameterType.numberOfParams())
+                    && (!parameterType.numberIsOptional() || parameters.length < 2)) {
+                return new Result<>(null, Error.INVALID_NUMBEROF_PARAMETERS);
+            }
+
+            for (String parameter : parameters) {
+                switch (parameterType) {
+                    case SINGLE_COORDINATE:
+                    case TWO_COORDINATES:
+                    case OPT_NUMBER_COORDINATES:
+                        if (!Command.ParameterType.isNumber(parameter)) {
+                            return new Result<>(null, Error.INVALID_PRAMETER_FORMATTING);
+                        }
+                        break;
+                    case SYMBOL:
+                        if (!Bar.Symbol.isSymbol(parameter)) {
+                            return new Result<>(null, Error.INVALID_PRAMETER_FORMATTING);
+                        }
+                        break;
+                    default:
+                        return new Result<>(null, Error.OTHER);
+                }
+            }
+
+            return new Result<>(parameters.length, null);
+        } catch (NullPointerException exception) {
             return new Result<>(null, Error.INVALID_NUMBEROF_PARAMETERS);
         }
-
-        Command.ParameterType parameterType = command.parameterType();
-
-        if ((parameters.length != parameterType.numberOfParams()) && (!parameterType.numberIsOptional() || parameters.length < 2)) {
-                return new Result<>(null, Error.INVALID_NUMBEROF_PARAMETERS);
-        }
-
-        return new Result<>(parameters.length, null);
     }
 
 }

@@ -154,5 +154,21 @@ enum Command {
         boolean numberIsOptional() {
             return this.numberOfParams() == -1;
         }
+
+        /**
+         * Checks if the given string is a number
+         *
+         * @param input String to check
+         * @return true if given string is a number, otherwise false
+         */
+        static boolean isNumber(String input) {
+            try {
+                int parsed = Integer.parseInt(input);
+                return true;
+
+            } catch (NumberFormatException exception) {
+                return false;
+            }
+        }
     }
 }

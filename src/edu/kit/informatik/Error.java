@@ -2,6 +2,10 @@ package edu.kit.informatik;
 
 enum Error {
     /**
+     * Something very specific happened
+     */
+    OTHER,
+    /**
      * User did not enter anything
      */
     NO_INPUT,
@@ -21,6 +25,8 @@ enum Error {
     @Override
     public String toString() {
         switch (this) {
+            case OTHER:
+                return "something happened.";
             case NO_INPUT:
                 return "no input received from Terminal.";
             case INVALID_COMMAND:
