@@ -26,7 +26,8 @@ final class Operation {
      * @return {@link Result<Operation>} result of the conversion
      */
     static Result<Operation> buildWith(String inputString) {
-        if (inputString == null || inputString.length() == 0) {
+        String stringWithoutWhiteSpaces = inputString.replaceAll(" ", "");
+        if (stringWithoutWhiteSpaces.length() == 0) {
             return new Result<>(null, Error.NO_INPUT);
         }
 
@@ -37,22 +38,55 @@ final class Operation {
             return new Result<>(null, Error.INVALID_COMMAND);
         }
 
-        String parameterString = "";
+        String[] parameters;
         if (components.length == 2) {
-            parameterString = components[1];
+            String parameterString = components[1];
+            parameters = parameterString.split(":");
+        } else {
+            parameters = new String[0];
         }
 
-        Operation operation = new Operation(cmd, parameterString.split(":"));
+        Operation operation = new Operation(cmd, parameters);
 
         return new Result<>(operation, null);
     }
 
     /**
      * Validates if the parameters are in a valid format
-     * @return true or false
+     * @return Result with number of parameters entered
      */
-    public boolean validate() {
-        return false;
+    public Result<Integer> validate() {
+        try {
+            Command.ParameterType parameterType = command.parameterType();
+
+            if ((parameters.length != parameterType.numberOfParams())
+                    && (!parameterType.numberIsOptional() || parameters.length < 2)) {
+                return new Result<>(null, Error.INVALID_NUMBEROF_PARAMETERS);
+            }
+
+            for (String parameter : parameters) {
+                switch (parameterType) {
+                    case SINGLE_COORDINATE:
+                    case TWO_COORDINATES:
+                    case OPT_NUMBER_COORDINATES:
+                        if (!Command.ParameterType.isNumber(parameter)) {
+                            return new Result<>(null, Error.INVALID_PRAMETER_FORMATTING);
+                        }
+                        break;
+                    case SYMBOL:
+                        if (!Bar.Symbol.isSymbol(parameter)) {
+                            return new Result<>(null, Error.INVALID_PRAMETER_FORMATTING);
+                        }
+                        break;
+                    default:
+                        return new Result<>(null, Error.OTHER);
+                }
+            }
+
+            return new Result<>(parameters.length, null);
+        } catch (NullPointerException exception) {
+            return new Result<>(null, Error.INVALID_NUMBEROF_PARAMETERS);
+        }
     }
 
 }
