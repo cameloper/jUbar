@@ -45,6 +45,7 @@ enum Command {
      */
     static Command initWith(String rawValue) {
         for (Command cmd : Command.values()) {
+            assert cmd.rawValue() != null;
             if (cmd.rawValue().equals(rawValue)) {
                 return cmd;
             }
@@ -57,7 +58,7 @@ enum Command {
      * Gives the raw String value of this Command instance
      * @return String rawValue of command instance
      */
-    String rawValue() {
+    private String rawValue() {
         switch (this) {
             case STATE:
                 return "state";

@@ -4,11 +4,11 @@ final class Operation {
     /**
      * The command entered by the user
      */
-    Command command;
+    private Command command;
     /**
      * Given parameters along with the entered command
      */
-    String[] parameters;
+    private String[] parameters;
 
     private Operation(Command command, String[] parameters) {
         this.command = command;
@@ -59,6 +59,7 @@ final class Operation {
         try {
             Command.ParameterType parameterType = command.parameterType();
 
+            assert parameterType != null;
             if ((parameters.length != parameterType.numberOfParams())
                     && (!parameterType.numberIsOptional() || parameters.length < 2)) {
                 return new Result<>(null, Error.INVALID_NUMBEROF_PARAMETERS);

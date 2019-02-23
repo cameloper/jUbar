@@ -4,11 +4,11 @@ class Stone extends Figure {
     /**
      * Coordinates of this stone on a 2 dimensional space
      */
-    Point2D position;
+    private Point2D position;
     /**
      * {@link Type} of the stone
      */
-    Type type;
+    private Type type;
 
     /**
      * Default constructor of {@link Stone}

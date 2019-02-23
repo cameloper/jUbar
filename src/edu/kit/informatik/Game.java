@@ -9,32 +9,32 @@ class Game {
     /**
      * Board status of 'this' game object
      */
-    Board board;
+    private Board board;
 
     /**
      * Nature player of this instance
      */
-    Nature nature;
+    private Nature nature;
 
     /**
      * Mission control player of this instance
      */
-    MissionControl missionControl;
+    private MissionControl missionControl;
 
     /**
      * Which player is allowed to play
      */
-    Player turn;
+    private Player turn;
 
     /**
      * The ongoing game phase
      */
-    Phase phase;
+    private Phase phase;
 
     /**
      * The ongoing game subphase
      */
-    Phase.Subphase subphase;
+    private Phase.Subphase subphase;
 
     /**
      * Default constructor for {@link Game}

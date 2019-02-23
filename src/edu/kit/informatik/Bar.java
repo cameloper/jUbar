@@ -4,11 +4,11 @@ class Bar extends Figure {
     /**
      * On-Board Position of the Bar
      */
-    Vector2D position;
+    private Vector2D position;
     /**
      * Symbol of the bar
      */
-    Symbol symbol;
+    private Symbol symbol;
 
     /**
      * Default constructor for {@link Bar}
