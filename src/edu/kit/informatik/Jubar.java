@@ -25,7 +25,10 @@ public class Jubar {
                 Terminal.printError(validationResult.error.toString());
                 continue;
             }
-
         }
+    }
+
+    private static void startGame() {
+        Game.current = new Game();
     }
 }

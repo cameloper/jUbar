@@ -6,4 +6,9 @@ class Bar extends Figure {
      */
     Vector2D position;
     Symbol symbol;
+
+    public Bar(Symbol symbol) {
+        this.position = null;
+        this.symbol = symbol;
+    }
 }

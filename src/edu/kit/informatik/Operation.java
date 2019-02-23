@@ -74,7 +74,7 @@ final class Operation {
                         }
                         break;
                     case SYMBOL:
-                        if (!Bar.Symbol.isSymbol(parameter)) {
+                        if (!Symbol.isSymbol(parameter)) {
                             return new Result<>(null, Error.INVALID_PRAMETER_FORMATTING);
                         }
                         break;

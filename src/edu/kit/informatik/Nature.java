@@ -1,6 +1,11 @@
 package edu.kit.informatik;
 
-public class Nature extends Player {
+class Nature extends Player {
     Stone vesta;
     Stone ceres;
+
+    Nature() {
+        vesta = new Stone(Stone.Type.VESTA);
+        ceres = new Stone(Stone.Type.CERES);
+    }
 }

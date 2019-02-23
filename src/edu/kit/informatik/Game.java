@@ -14,17 +14,17 @@ class Game {
     /**
      * Nature player of this instance
      */
-    Player nature;
+    Nature nature;
 
     /**
      * Mission control player of this instance
      */
-    Player missionControl;
+    MissionControl missionControl;
 
     /**
      * Which player is allowed to play
      */
-    Player.Type turn;
+    Player turn;
 
     /**
      * The ongoing game phase
@@ -38,5 +38,10 @@ class Game {
 
     Game() {
         board = new Board();
+        nature = new Nature();
+        missionControl = new MissionControl();
+        turn = nature;
+        phase = Phase.FIRST;
+        subphase =  Phase.Subphase.I;
     }
 }
