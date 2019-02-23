@@ -16,6 +16,10 @@ enum Phase {
 
     enum Subphase {
         /**
+         * Nature places Stone
+         */
+        INIT,
+        /**
          * Nature rolls the dice
          */
         I,
@@ -38,6 +42,8 @@ enum Phase {
          */
         Subphase next() {
             switch (this) {
+                case INIT:
+                    return I;
                 case I:
                     return II;
                 case II:
