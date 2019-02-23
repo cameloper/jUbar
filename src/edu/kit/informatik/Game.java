@@ -36,6 +36,9 @@ class Game {
      */
     Phase.Subphase subphase;
 
+    /**
+     * Default constructor for {@link Game}
+     */
     Game() {
         board = new Board();
         nature = new Nature();

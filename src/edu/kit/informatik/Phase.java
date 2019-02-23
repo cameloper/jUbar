@@ -32,6 +32,10 @@ enum Phase {
          */
         END;
 
+        /**
+         * Gives the next sub phase of current phase
+         * @return {@link Subphase} next subphase of game
+         */
         Subphase next() {
             switch (this) {
                 case I:
