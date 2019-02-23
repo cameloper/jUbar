@@ -1,9 +1,9 @@
 package edu.kit.informatik;
 
 class Player {
-    private Figure[] figures;
+    private Type type;
 
-    public enum PlayerType {
+    public enum Type {
         /**
          * The player that plays as Nature
          */

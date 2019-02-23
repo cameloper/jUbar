@@ -24,25 +24,19 @@ class Game {
     /**
      * Which player is allowed to play
      */
-    Player.PlayerType turn;
+    Player.Type turn;
 
     /**
      * The ongoing game phase
      */
     Phase phase;
 
-    enum Phase {
-        /**
-         * Game is still on the first phase, in which MC is trying to hunt Vesta alone
-         */
-        FIRST,
-        /**
-         * Game is in the second phase, Ceres is on the board as well
-         */
-        SECOND,
-        /**
-         * Game did end
-         */
-        END
+    /**
+     * The ongoing game subphase
+     */
+    Phase.Subphase subphase;
+
+    Game() {
+        board = new Board();
     }
 }
