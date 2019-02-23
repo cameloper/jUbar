@@ -4,21 +4,22 @@ import java.util.HashMap;
 
 class MissionControl extends Player {
     /**
-     * Bar deck for the first phase of game
+     * Collection of {@link Bar} objects the player has
      */
-    private HashMap<Symbol, Bar> firstDeck;
-    /**
-     * Bar deck for the second phase of game
-     */
-    private HashMap<Symbol, Bar> secondDeck;
+    private HashMap<Symbol, Bar> deck;
 
     /**
      * Default constructor for {@link MissionControl}
      */
     MissionControl() {
-        firstDeck = newDeck();
-        secondDeck = newDeck();
+        deck = newDeck();
+    }
 
+    /**
+     * Creates a new deck for the player
+     */
+    public void refreshDeck() {
+        deck = newDeck();
     }
 
     private static HashMap<Symbol, Bar> newDeck() {
