@@ -157,19 +157,13 @@ enum Command {
         }
 
         /**
-         * Checks if the given string is a number
+         * Checks if the given string is a coordinate
          *
          * @param input String to check
-         * @return true if given string is a number, otherwise false
+         * @return true if given string is a coordinate, otherwise false
          */
-        static boolean isNumber(String input) {
-            try {
-                int parsed = Integer.parseInt(input);
-                return true;
-
-            } catch (NumberFormatException exception) {
-                return false;
-            }
+        static boolean isCoordinate(String input) {
+            return input.matches("([0-9]{1,2});([0-9]{1,2})");
         }
     }
 }
