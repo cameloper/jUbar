@@ -71,7 +71,7 @@ final class Operation {
                     case TWO_COORDINATES:
                     case OPT_NUMBER_COORDINATES:
                         if (!Command.ParameterType.isCoordinate(parameter)) {
-                            return new Result<>(null, Error.INVALID_PRAMETER_FORMATTING);
+                            return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
                         }
                         break;
                     case SYMBOL:
