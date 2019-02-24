@@ -70,7 +70,7 @@ final class Operation {
                     case SINGLE_COORDINATE:
                     case TWO_COORDINATES:
                     case OPT_NUMBER_COORDINATES:
-                        if (!Command.ParameterType.isNumber(parameter)) {
+                        if (!Command.ParameterType.isCoordinate(parameter)) {
                             return new Result<>(null, Error.INVALID_PRAMETER_FORMATTING);
                         }
                         break;
