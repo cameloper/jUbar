@@ -71,12 +71,12 @@ final class Operation {
                     case TWO_COORDINATES:
                     case OPT_NUMBER_COORDINATES:
                         if (!Command.ParameterType.isNumber(parameter)) {
-                            return new Result<>(null, Error.INVALID_PRAMETER_FORMATTING);
+                            return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
                         }
                         break;
                     case SYMBOL:
                         if (!Symbol.isSymbol(parameter)) {
-                            return new Result<>(null, Error.INVALID_PRAMETER_FORMATTING);
+                            return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
                         }
                         break;
                     default:
@@ -88,6 +88,40 @@ final class Operation {
         } catch (NullPointerException exception) {
             return new Result<>(null, Error.INVALID_NUMBEROF_PARAMETERS);
         }
+    }
+
+    /**
+     * Executes the operation with given command and parameters
+     * @return {@link Result<String>} with value that'll be written
+     * in terminal
+     */
+    public Result<String> execute() {
+        switch (command) {
+            case SET_VC:
+                return placeStone();
+            default:
+                return new Result<>(null, Error.OTHER);
+        }
+    }
+
+    private Result<String> placeStone() {
+        if (Game.current == null) {
+            Game.current = new Game();
+        }
+
+        Stone stone;
+        switch (Game.current.getPhase()) {
+            case FIRST:
+                stone = Game.current.getNature().getVesta();
+                break;
+            case SECOND:
+                stone = Game.current.getNature().getCeres();
+                break;
+            default:
+                return new Result<>(null, Error.NO_ONGOING_GAME);
+        }
+
+        return new Result<>(null, Error.OTHER);
     }
 
 }

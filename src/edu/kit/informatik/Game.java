@@ -47,4 +47,30 @@ class Game {
         phase = Phase.FIRST;
         subphase =  Phase.Subphase.I;
     }
+
+    /**
+     * Public getter of Nature
+     * @return value of private variable Nature
+     */
+    public Nature getNature() {
+        return nature;
+    }
+
+    /**
+     * Getter for phase
+     * @return current phase
+     */
+    public Phase getPhase() {
+        return phase;
+    }
+
+    /**
+     * Places the given Stone to given coordinates
+     * @param stone {@link Stone} to place
+     * @param target Target tile coordinates
+     * @return Empty result if successful. Otherwise Result with Error
+     */
+    Result<Void> place(Stone stone, Point2D target) {
+        return new Result<>(null, Error.OTHER);
+    }
 }
