@@ -4,6 +4,7 @@ class Jubar {
 
     /**
      * First responder of our program that will handle all user input.
+     *
      * @param args initial arguments. None expected
      */
     public static void main(String[] args) {

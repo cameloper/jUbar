@@ -14,6 +14,22 @@ enum Phase {
      */
     END;
 
+    /**
+     * Gives the next phase of current game
+     *
+     * @return {@link Phase} next phase of game
+     */
+    Phase next() {
+        switch (this) {
+            case FIRST:
+                return SECOND;
+            case SECOND:
+                return END;
+            default:
+                return null;
+        }
+    }
+
     enum Subphase {
         /**
          * Nature places Stone
@@ -38,6 +54,7 @@ enum Phase {
 
         /**
          * Gives the next sub phase of current phase
+         *
          * @return {@link Subphase} next subphase of game
          */
         Subphase next() {

@@ -18,6 +18,7 @@ class Board {
 
     /**
      * Gives the tile with given coordinates
+     *
      * @param point Coordinates of the requested Tile
      * @return Tile with given coordinates
      */
@@ -29,4 +30,3 @@ class Board {
         return tiles.get(point);
     }
 }
-

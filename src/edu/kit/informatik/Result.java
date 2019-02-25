@@ -16,6 +16,7 @@ class Result<T> {
 
     /**
      * Constructor for {@link Result}
+     *
      * @param value result value
      * @param error first error that occured
      */
@@ -26,6 +27,7 @@ class Result<T> {
 
     /**
      * Boolean method whether the operation should be considered as successful or not
+     *
      * @return boolean isSuccessful
      */
     boolean isSuccessful() {

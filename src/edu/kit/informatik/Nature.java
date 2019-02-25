@@ -21,6 +21,7 @@ class Nature extends Player {
 
     /**
      * Public getter of Vesta
+     *
      * @return value of private variable Vesta
      */
     Stone getVesta() {
@@ -29,6 +30,7 @@ class Nature extends Player {
 
     /**
      * Public getter of Ceres
+     *
      * @return value of private variable Ceres
      */
     Stone getCeres() {

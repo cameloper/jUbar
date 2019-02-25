@@ -45,7 +45,7 @@ class Game {
         missionControl = new MissionControl();
         turn = nature;
         phase = Phase.FIRST;
-        subphase =  Phase.Subphase.I;
+        subphase = Phase.Subphase.INIT;
     }
 
     static void newGame() {
@@ -54,6 +54,7 @@ class Game {
 
     /**
      * Public getter of Nature
+     *
      * @return value of private variable Nature
      */
     Nature getNature() {
@@ -62,6 +63,7 @@ class Game {
 
     /**
      * Getter for phase
+     *
      * @return current phase
      */
     Phase getPhase() {
@@ -69,8 +71,29 @@ class Game {
     }
 
     /**
+     * Public getter of Subphase
+     *
+     * @returns value of private variable Subphase
+     */
+    public Phase.Subphase getSubphase() {
+        return subphase;
+    }
+
+    /**
+     * Switches to the next game phase
+     */
+    void nextPhase() {
+        subphase = subphase.next();
+        if (subphase == Phase.Subphase.END) {
+            phase = phase.next();
+            subphase = Phase.Subphase.INIT;
+        }
+    }
+
+    /**
      * Places the given Stone to given coordinates
-     * @param stone {@link Stone} to place
+     *
+     * @param stone  {@link Stone} to place
      * @param target Target tile coordinates
      * @return Empty result if successful. Otherwise Result with Error
      */
