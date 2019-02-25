@@ -27,8 +27,4 @@ class Jubar {
             }
         }
     }
-
-    private static void startGame() {
-        Game.current = new Game();
-    }
 }

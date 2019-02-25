@@ -39,7 +39,7 @@ class Game {
     /**
      * Default constructor for {@link Game}
      */
-    Game() {
+    private Game() {
         board = new Board();
         nature = new Nature();
         missionControl = new MissionControl();
@@ -48,11 +48,15 @@ class Game {
         subphase =  Phase.Subphase.I;
     }
 
+    static void newGame() {
+        Game.current = new Game();
+    }
+
     /**
      * Public getter of Nature
      * @return value of private variable Nature
      */
-    public Nature getNature() {
+    Nature getNature() {
         return nature;
     }
 
@@ -60,7 +64,7 @@ class Game {
      * Getter for phase
      * @return current phase
      */
-    public Phase getPhase() {
+    Phase getPhase() {
         return phase;
     }
 

@@ -55,7 +55,7 @@ final class Operation {
      * Validates if the parameters are in a valid format
      * @return Result with number of parameters entered
      */
-    public Result<Integer> validate() {
+    Result<Integer> validate() {
         try {
             Command.ParameterType parameterType = command.parameterType();
 
@@ -95,7 +95,7 @@ final class Operation {
      * @return {@link Result<String>} with value that'll be written
      * in terminal
      */
-    public Result<String> execute() {
+    Result<String> execute() {
         switch (command) {
             case SET_VC:
                 return placeStone();
@@ -106,7 +106,7 @@ final class Operation {
 
     private Result<String> placeStone() {
         if (Game.current == null) {
-            Game.current = new Game();
+            Game.newGame();
         }
 
         Stone stone;

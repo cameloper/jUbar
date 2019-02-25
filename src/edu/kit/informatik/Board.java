@@ -21,7 +21,7 @@ class Board {
      * @param point Coordinates of the requested Tile
      * @return Tile with given coordinates
      */
-    public Tile getTile(Point2D point) {
+    Tile getTile(Point2D point) {
         if (point == null) {
             return null;
         }

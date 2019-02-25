@@ -19,7 +19,7 @@ class Result<T> {
      * @param value result value
      * @param error first error that occured
      */
-    public Result(T value, Error error) {
+    Result(T value, Error error) {
         this.value = value;
         this.error = error;
     }

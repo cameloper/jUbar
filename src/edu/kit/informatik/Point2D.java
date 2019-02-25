@@ -15,7 +15,7 @@ class Point2D {
      * @param x Position in x-Axis
      * @param y Position in y-Axis
      */
-    public Point2D(int x, int y) {
+    Point2D(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -25,7 +25,7 @@ class Point2D {
      *
      * @return value of private variable X
      */
-    public int getX() {
+    int getX() {
         return x;
     }
 
@@ -34,7 +34,7 @@ class Point2D {
      *
      * @return value of private variable Y
      */
-    public int getY() {
+    int getY() {
         return y;
     }
 
@@ -44,7 +44,7 @@ class Point2D {
      * @param height Height of the board
      * @return One-dimensional array of Point2D objects
      */
-    public static Point2D[] boardPoints(int width, int height) {
+    static Point2D[] boardPoints(int width, int height) {
         Point2D[] output = new Point2D[165];
         for (int row = 0; row < height; row++) {
             for (int column = 0; column < width; column++) {

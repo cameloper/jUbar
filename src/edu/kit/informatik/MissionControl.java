@@ -18,7 +18,7 @@ class MissionControl extends Player {
     /**
      * Creates a new deck for the player
      */
-    public void refreshDeck() {
+    void refreshDeck() {
         deck = newDeck();
     }
 
