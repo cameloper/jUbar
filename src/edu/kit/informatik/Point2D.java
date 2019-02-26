@@ -21,6 +21,18 @@ class Point2D {
     }
 
     /**
+     * Generates a Point2D object using raw input String
+     * @param input Input String
+     * @return
+     */
+    static Point2D parse(String input) {
+        String[] components = input.split(";");
+        int x = Integer.parseInt(components[0]);
+        int y = Integer.parseInt(components[1]);
+        return new Point2D(x, y);
+    }
+
+    /**
      * Public getter of X
      *
      * @return value of private variable X
