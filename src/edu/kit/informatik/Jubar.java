@@ -12,19 +12,26 @@ class Jubar {
 
         while (isListening) {
             String input = Terminal.readLine();
-            Result<Operation> operationResult = Operation.buildWith(input);
+            Result<Operation> parsingResult = Operation.buildWith(input);
 
-            if (!operationResult.isSuccessful()) {
-                Terminal.printError(operationResult.error.toString());
+            if (!parsingResult.isSuccessful()) {
+                Terminal.printError(parsingResult.error.toString());
                 continue;
             }
 
-            Operation operation = operationResult.value;
+            Operation operation = parsingResult.value;
             Result<Integer> validationResult = operation.validate();
 
             if (!validationResult.isSuccessful()) {
                 Terminal.printError(validationResult.error.toString());
                 continue;
+            }
+
+            Result<String> operationResult = operation.execute();
+            if (operationResult.isSuccessful()) {
+                Terminal.printLine(operationResult.value);
+            } else {
+                Terminal.printError(operationResult.error.toString());
             }
         }
     }

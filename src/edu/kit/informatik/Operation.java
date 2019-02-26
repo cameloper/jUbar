@@ -1,6 +1,7 @@
 package edu.kit.informatik;
 
 final class Operation {
+    private static String okString = "OK";
     /**
      * The command entered by the user
      */
@@ -121,7 +122,13 @@ final class Operation {
                 return new Result<>(null, Error.NO_ONGOING_GAME);
         }
 
-        return new Result<>(null, Error.OTHER);
+        Point2D targetCoordinates = Point2D.parse(parameters[0]);
+        Result<Void> result = Game.current.place(stone, targetCoordinates);
+        if (result.isSuccessful()) {
+            return new Result<>(okString, null);
+        } else {
+            return new Result<>(null, result.error);
+        }
     }
 
 }

@@ -98,6 +98,7 @@ class Game {
      * @return Empty result if successful. Otherwise Result with Error
      */
     Result<Void> place(Stone stone, Point2D target) {
+
         return new Result<>(null, Error.OTHER);
     }
 }
