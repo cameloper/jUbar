@@ -98,6 +98,10 @@ class Game {
      * @return Empty result if successful. Otherwise Result with Error
      */
     Result<Void> place(Stone stone, Point2D target) {
+        Tile tile = board.getTile(target);
+        if (tile == null) {
+            return new Result<>(null, Error.TILE_DOES_NOT_EXIST);
+        }
 
         return new Result<>(null, Error.OTHER);
     }

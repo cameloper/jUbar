@@ -9,7 +9,7 @@ class Board {
      * Default constructor for {@link Board}
      */
     Board() {
-        Point2D[] coordinates = Point2D.boardPoints(15, 11);
+        Point2D[] coordinates = Point2D.boardPoints();
         tiles = new HashMap<>();
         for (Point2D point : coordinates) {
             tiles.put(point, new Tile());
