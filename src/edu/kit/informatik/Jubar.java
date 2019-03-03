@@ -1,6 +1,10 @@
 package edu.kit.informatik;
 
 class Jubar {
+    /**
+     * Says whether the game shall continue or not
+     */
+    static boolean isListening = true;
 
     /**
      * First responder of our program that will handle all user input.
@@ -8,8 +12,6 @@ class Jubar {
      * @param args initial arguments. None expected
      */
     public static void main(String[] args) {
-        boolean isListening = true;
-
         while (isListening) {
             String input = Terminal.readLine();
             Result<Operation> parsingResult = Operation.buildWith(input);
@@ -29,10 +31,10 @@ class Jubar {
 
             Result<String> operationResult = operation.executeAndProceed();
             if (operationResult.isSuccessful()) {
-                Terminal.printLine(operationResult.value);
-            } else {
-                Terminal.printError(operationResult.error.toString());
-            }
+                if (operationResult.value != null) {
+                    Terminal.printLine(operationResult.value);
+                }
+            } else Terminal.printError(operationResult.error.toString());
         }
     }
 }

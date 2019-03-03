@@ -120,9 +120,16 @@ final class Operation {
                 return printBoard();
             case SET_VC:
                 return placeStone();
+            case QUIT:
+                return quitGame();
             default:
                 return new Result<>(null, Error.OTHER);
         }
+    }
+
+    private Result<String> quitGame() {
+        Jubar.isListening = false;
+        return new Result<>(null, null);
     }
 
     private Result<String> printBoard() {
