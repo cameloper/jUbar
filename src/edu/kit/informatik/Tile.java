@@ -1,7 +1,25 @@
 package edu.kit.informatik;
 
 class Tile {
+    private Point2D position;
     private Figure resident;
+
+    /**
+     * Default constructor for Tile
+     * @param position position of the tile
+     */
+    public Tile(Point2D position) {
+        this.position = position;
+    }
+
+    /**
+     * Public getter of Position
+     *
+     * @return value of private variable Position
+     */
+    public Point2D getPosition() {
+        return position;
+    }
 
     /**
      * Public getter of Resident

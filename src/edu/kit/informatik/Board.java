@@ -1,18 +1,16 @@
 package edu.kit.informatik;
 
-import java.util.HashMap;
-
 class Board {
-    private HashMap<Point2D, Tile> tiles;
+    private Tile[] tiles;
 
     /**
      * Default constructor for {@link Board}
      */
     Board() {
         Point2D[] coordinates = Point2D.boardPoints();
-        tiles = new HashMap<>();
-        for (Point2D point : coordinates) {
-            tiles.put(point, new Tile());
+        tiles = new Tile[coordinates.length];
+        for (int i = 0; i < coordinates.length; i++) {
+            tiles[i] = new Tile(coordinates[i]);
         }
     }
 
@@ -27,6 +25,12 @@ class Board {
             return null;
         }
 
-        return tiles.get(point);
+        for (Tile tile: tiles) {
+            if (tile.getPosition().equals(point)) {
+                return tile;
+            }
+        }
+
+        return null;
     }
 }
