@@ -115,6 +115,9 @@ final class Operation {
     }
 
     private Result<String> execute() {
+        if (!command.isValidIn(Game.current.getSubphase())) {
+            return new Result<>(null, Error.INVALID_MOVE);
+        }
         switch (command) {
             case RESET:
                 return resetGame();

@@ -26,6 +26,10 @@ enum Error {
      */
     NO_ONGOING_GAME,
     /**
+     * Invalid action for current game phase
+     */
+    INVALID_MOVE,
+    /**
      * Given tile for placement etc. does not exist
      */
     TILE_DOES_NOT_EXIST,
@@ -53,6 +57,8 @@ enum Error {
                 return "given parameters are not in correct format for the entered command.";
             case NO_ONGOING_GAME:
                 return "there is no ongoing game right now. Use 'reset' command to create new one.";
+            case INVALID_MOVE:
+                return "the move you made is not valid for the current game phase.";
             case TILE_DOES_NOT_EXIST:
                 return "such a tile doesn't exist.";
             case TILE_IS_FULL:

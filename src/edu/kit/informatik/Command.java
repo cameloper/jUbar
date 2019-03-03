@@ -108,6 +108,27 @@ enum Command {
         }
     }
 
+    /**
+     * Says if move is valid in given subphase
+     *
+     * @param subphase The subphase the command will be validated for
+     * @return boolean
+     */
+    boolean isValidIn(Phase.Subphase subphase) {
+        switch (this) {
+            case SET_VC:
+                return subphase == Phase.Subphase.INIT;
+            case ROLL:
+                return subphase == Phase.Subphase.I;
+            case PLACE:
+                return subphase == Phase.Subphase.II;
+            case MOVE:
+                return subphase == Phase.Subphase.III;
+            default:
+                return true;
+        }
+    }
+
     enum ParameterType {
         /**
          * Command requires no parameters
