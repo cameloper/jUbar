@@ -120,6 +120,7 @@ final class Operation {
         if (!command.isValidIn(Game.current.getSubphase())) {
             return new Result<>(null, Error.INVALID_MOVE);
         }
+
         switch (command) {
             case STATE:
                 return state();
@@ -129,11 +130,26 @@ final class Operation {
                 return printBoard();
             case SET_VC:
                 return placeStone();
+            case ROLL:
+                return roll();
             case QUIT:
                 return quitGame();
             default:
                 return new Result<>(null, Error.OTHER);
         }
+    }
+
+    private Result<String> roll() {
+        if (Game.current == null) {
+            return new Result<>(null, Error.NO_ONGOING_GAME);
+        }
+
+        Symbol symbol = Symbol.initWith(parameters[0]);
+        if (symbol == null) {
+            return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
+        }
+
+        return Game.current.roll(symbol);
     }
 
     private Result<String> state() {

@@ -21,10 +21,8 @@ final class Game {
      */
     private MissionControl missionControl;
 
-    /**
-     * Which player is allowed to play
-     */
-    private Player turn;
+    private Symbol lastRolledDice;
+    private Symbol lastPlacedBar;
 
     /**
      * The ongoing game phase
@@ -43,7 +41,6 @@ final class Game {
         board = new Board();
         nature = new Nature();
         missionControl = new MissionControl();
-        turn = nature;
         phase = Phase.FIRST;
         subphase = Phase.Subphase.INIT;
     }
@@ -152,5 +149,16 @@ final class Game {
 
         String value = tile.toString();
         return new Result<>(value, null);
+    }
+
+    /**
+     * Changes the last rolled symbol to given symbol
+     *
+     * @param symbol New symbol
+     * @return Result that says "OK"
+     */
+    Result<String> roll(Symbol symbol) {
+        lastRolledDice = symbol;
+        return new Result<>("OK", null);
     }
 }

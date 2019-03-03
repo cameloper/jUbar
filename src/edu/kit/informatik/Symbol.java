@@ -54,7 +54,7 @@ enum Symbol {
      * @param rawValue Input string
      * @return Referred Symbol case
      */
-    private static Symbol initWith(String rawValue) {
+    static Symbol initWith(String rawValue) {
         switch (rawValue) {
             case "2":
                 return TWO;
