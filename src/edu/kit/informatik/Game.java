@@ -1,6 +1,6 @@
 package edu.kit.informatik;
 
-class Game {
+final class Game {
     /**
      * The ongoing game object to allow keeping some states
      */
@@ -39,12 +39,88 @@ class Game {
     /**
      * Default constructor for {@link Game}
      */
-    Game() {
+    private Game() {
         board = new Board();
         nature = new Nature();
         missionControl = new MissionControl();
         turn = nature;
         phase = Phase.FIRST;
-        subphase =  Phase.Subphase.I;
+        subphase = Phase.Subphase.INIT;
+    }
+
+    /**
+     * Ends the current game and creates a new one
+     */
+    static void newGame() {
+        Game.current = new Game();
+    }
+
+    /**
+     * Public getter of Nature
+     *
+     * @return value of private variable Nature
+     */
+    Nature getNature() {
+        return nature;
+    }
+
+    /**
+     * Getter for phase
+     *
+     * @return current phase
+     */
+    Phase getPhase() {
+        return phase;
+    }
+
+    /**
+     * Public getter of Subphase
+     *
+     * @return value of private variable Subphase
+     */
+    public Phase.Subphase getSubphase() {
+        return subphase;
+    }
+
+    /**
+     * Switches to the next game phase
+     */
+    void nextPhase() {
+        subphase = subphase.next();
+        if (subphase == Phase.Subphase.END) {
+            phase = phase.next();
+            subphase = Phase.Subphase.INIT;
+        }
+    }
+
+    /**
+     * Places the given Stone to given coordinates
+     *
+     * @param stone  {@link Stone} to place
+     * @param target Target tile coordinates
+     * @return Empty result if successful. Otherwise Result with Error
+     */
+    Result<Void> place(Stone stone, Point2D target) {
+        Tile tile = board.getTile(target);
+        if (tile == null) {
+            return new Result<>(null, Error.TILE_DOES_NOT_EXIST);
+        }
+
+        if (tile.isFull()) {
+            return new Result<>(null, Error.TILE_IS_FULL);
+        }
+
+        Point2D oldPosition = stone.getPosition();
+        if (oldPosition != null) {
+            Tile oldTile = board.getTile(oldPosition);
+            if (oldTile != null) {
+                oldTile.setResident(null);
+            }
+        }
+
+        tile.setResident(stone);
+        stone.setPosition(target);
+
+        return new Result<>(null, null);
     }
 }

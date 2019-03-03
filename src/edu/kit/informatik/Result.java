@@ -16,16 +16,18 @@ class Result<T> {
 
     /**
      * Constructor for {@link Result}
+     *
      * @param value result value
      * @param error first error that occured
      */
-    public Result(T value, Error error) {
+    Result(T value, Error error) {
         this.value = value;
         this.error = error;
     }
 
     /**
      * Boolean method whether the operation should be considered as successful or not
+     *
      * @return boolean isSuccessful
      */
     boolean isSuccessful() {

@@ -17,8 +17,7 @@ import java.io.InputStreamReader;
  * @author  IPD, SDQ Group
  * @version 5.03, 2016/05/07
  */
-@SuppressWarnings("ALL")
-final class Terminal {
+public final class Terminal {
     
     /**
      * Reads text from the "standard" input stream, buffering characters so as to provide for the efficient reading
@@ -61,7 +60,7 @@ final class Terminal {
      * @param object the {@code Object} to be printed
      * @see   String#valueOf(Object)
      */
-    private static void printLine(final Object object) {
+    public static void printLine(final Object object) {
         System.out.println(object);
     }
     

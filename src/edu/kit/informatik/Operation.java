@@ -1,6 +1,7 @@
 package edu.kit.informatik;
 
 final class Operation {
+    private static String okString = "OK";
     /**
      * The command entered by the user
      */
@@ -20,8 +21,9 @@ final class Operation {
      * This method checks if the entered command is valid,
      * however it doesn't check if the entered parameters are
      * valid regarding the command.
-     *
+     * <p>
      * For that purpose, use instance method {@code validate()} instead.
+     *
      * @param inputString The whole string gathered from {@code Terminal.readLine()}
      * @return {@link Result<Operation>} result of the conversion
      */
@@ -53,9 +55,10 @@ final class Operation {
 
     /**
      * Validates if the parameters are in a valid format
+     *
      * @return Result with number of parameters entered
      */
-    public Result<Integer> validate() {
+    Result<Integer> validate() {
         try {
             Command.ParameterType parameterType = command.parameterType();
 
@@ -71,12 +74,12 @@ final class Operation {
                     case TWO_COORDINATES:
                     case OPT_NUMBER_COORDINATES:
                         if (!Command.ParameterType.isCoordinate(parameter)) {
-                            return new Result<>(null, Error.INVALID_PRAMETER_FORMATTING);
+                            return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
                         }
                         break;
                     case SYMBOL:
                         if (!Symbol.isSymbol(parameter)) {
-                            return new Result<>(null, Error.INVALID_PRAMETER_FORMATTING);
+                            return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
                         }
                         break;
                     default:
@@ -90,4 +93,48 @@ final class Operation {
         }
     }
 
+    /**
+     * Executes the operation with given command and parameters
+     *
+     * @return {@link Result<String>} with value that'll be written
+     * in terminal
+     */
+    Result<String> execute() {
+        switch (command) {
+            case SET_VC:
+                return placeStone();
+            default:
+                return new Result<>(null, Error.OTHER);
+        }
+    }
+
+    private Result<String> placeStone() {
+        if (Game.current == null) {
+            Game.newGame();
+        }
+
+        Stone stone;
+        switch (Game.current.getPhase()) {
+            case FIRST:
+                stone = Game.current.getNature().getVesta();
+                break;
+            case SECOND:
+                stone = Game.current.getNature().getCeres();
+                break;
+            default:
+                return new Result<>(null, Error.NO_ONGOING_GAME);
+        }
+
+        try {
+            Point2D targetCoordinates = Point2D.parse(parameters[0]);
+            Result<Void> result = Game.current.place(stone, targetCoordinates);
+            if (result.isSuccessful()) {
+                return new Result<>(okString, null);
+            } else {
+                return new Result<>(null, result.error);
+            }
+        } catch (NumberFormatException exception) {
+            return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
+        }
+    }
 }
