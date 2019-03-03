@@ -18,4 +18,9 @@ class Bar extends Figure {
         this.position = null;
         this.symbol = symbol;
     }
+
+    @Override
+    public String toString() {
+        return "+";
+    }
 }

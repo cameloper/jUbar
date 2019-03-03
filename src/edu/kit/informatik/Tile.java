@@ -48,4 +48,13 @@ class Tile {
     public boolean isFull() {
         return resident != null;
     }
+
+    @Override
+    public String toString() {
+        if (resident == null) {
+            return "-";
+        }
+
+        return resident.toString();
+    }
 }

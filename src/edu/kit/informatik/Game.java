@@ -123,4 +123,18 @@ final class Game {
 
         return new Result<>(null, null);
     }
+
+    /**
+     * Writes the current state of board into String
+     *
+     * @return {@code this.board} as String
+     */
+    Result<String> print() {
+        String value = board.toString();
+        if (value == null) {
+            return new Result<>(null, Error.OTHER);
+        }
+
+        return new Result<>(value, null);
+    }
 }

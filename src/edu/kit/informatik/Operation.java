@@ -99,13 +99,38 @@ final class Operation {
      * @return {@link Result<String>} with value that'll be written
      * in terminal
      */
-    Result<String> execute() {
+    Result<String> executeAndProceed() {
+        Result<String> result = execute();
         switch (command) {
+            case SET_VC:
+            case MOVE:
+            case ROLL:
+            case PLACE:
+                Game.current.nextPhase();
+            default:
+                break;
+        }
+
+        return result;
+    }
+
+    private Result<String> execute() {
+        switch (command) {
+            case PRINT:
+                return printBoard();
             case SET_VC:
                 return placeStone();
             default:
                 return new Result<>(null, Error.OTHER);
         }
+    }
+
+    private Result<String> printBoard() {
+        if (Game.current == null) {
+            return new Result<>(null, Error.NO_ONGOING_GAME);
+        }
+
+        return Game.current.print();
     }
 
     private Result<String> placeStone() {

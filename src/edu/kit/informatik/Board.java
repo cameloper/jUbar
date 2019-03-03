@@ -33,4 +33,28 @@ class Board {
 
         return null;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder outString = new StringBuilder();
+        for (int row = 0; row < 11; row++) {
+            StringBuilder rowstring = new StringBuilder();
+            for (int column = 0; column < 15; column++) {
+                Tile tile = getTile(new Point2D(column, row));
+                if (column != 0) {
+                    rowstring.append(" ");
+                }
+
+                rowstring.append(tile);
+            }
+
+            outString.append(rowstring);
+
+            if (row != 10) {
+                outString.append("\n");
+            }
+        }
+
+        return outString.toString();
+    }
 }
