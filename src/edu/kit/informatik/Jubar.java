@@ -27,7 +27,7 @@ class Jubar {
                 continue;
             }
 
-            Result<String> operationResult = operation.execute();
+            Result<String> operationResult = operation.executeAndProceed();
             if (operationResult.isSuccessful()) {
                 Terminal.printLine(operationResult.value);
             } else {

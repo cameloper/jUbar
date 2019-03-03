@@ -36,25 +36,25 @@ class Board {
 
     @Override
     public String toString() {
-        String outString = new String();
+        StringBuilder outString = new StringBuilder();
         for (int row = 0; row < 11; row++) {
-            String rowstring = new String();
+            StringBuilder rowstring = new StringBuilder();
             for (int column = 0; column < 15; column++) {
                 Tile tile = getTile(new Point2D(column, row));
                 if (column != 0) {
-                    rowstring += " ";
+                    rowstring.append(" ");
                 }
 
-                rowstring += tile;
+                rowstring.append(tile);
             }
 
-            outString += rowstring;
+            outString.append(rowstring);
 
             if (row != 10) {
-                outString += "\n";
+                outString.append("\n");
             }
         }
 
-        return outString;
+        return outString.toString();
     }
 }
