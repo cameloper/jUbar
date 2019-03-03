@@ -106,7 +106,9 @@ final class Operation {
             case MOVE:
             case ROLL:
             case PLACE:
-                Game.current.nextPhase();
+                if (result.isSuccessful()) {
+                    Game.current.nextPhase();
+                }
             default:
                 break;
         }
@@ -119,6 +121,8 @@ final class Operation {
             return new Result<>(null, Error.INVALID_MOVE);
         }
         switch (command) {
+            case STATE:
+                return state();
             case RESET:
                 return resetGame();
             case PRINT:
@@ -129,6 +133,19 @@ final class Operation {
                 return quitGame();
             default:
                 return new Result<>(null, Error.OTHER);
+        }
+    }
+
+    private Result<String> state() {
+        if (Game.current == null) {
+            return new Result<>(null, Error.NO_ONGOING_GAME);
+        }
+
+        try {
+            Point2D targetCoordinates = Point2D.parse(parameters[0]);
+            return Game.current.stateOf(targetCoordinates);
+        } catch (NumberFormatException exception) {
+            return new Result<>(null, Error.OTHER);
         }
     }
 

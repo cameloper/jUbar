@@ -137,4 +137,20 @@ final class Game {
 
         return new Result<>(value, null);
     }
+
+    /**
+     * Gives the current state of requested tile
+     *
+     * @param point Requested tile coordinations
+     * @return Result with "-" for empty, "+" for MC Bars, "V" or "C" for Nature stones
+     */
+    Result<String> stateOf(Point2D point) {
+        Tile tile = board.getTile(point);
+        if (tile == null) {
+            return new Result<>(null, Error.TILE_DOES_NOT_EXIST);
+        }
+
+        String value = tile.toString();
+        return new Result<>(value, null);
+    }
 }
