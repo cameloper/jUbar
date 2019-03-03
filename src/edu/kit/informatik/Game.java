@@ -1,6 +1,6 @@
 package edu.kit.informatik;
 
-class Game {
+final class Game {
     /**
      * The ongoing game object to allow keeping some states
      */
@@ -48,6 +48,9 @@ class Game {
         subphase = Phase.Subphase.INIT;
     }
 
+    /**
+     * Ends the current game and creates a new one
+     */
     static void newGame() {
         Game.current = new Game();
     }
@@ -73,7 +76,7 @@ class Game {
     /**
      * Public getter of Subphase
      *
-     * @returns value of private variable Subphase
+     * @return value of private variable Subphase
      */
     public Phase.Subphase getSubphase() {
         return subphase;
@@ -103,6 +106,21 @@ class Game {
             return new Result<>(null, Error.TILE_DOES_NOT_EXIST);
         }
 
-        return new Result<>(null, Error.OTHER);
+        if (tile.isFull()) {
+            return new Result<>(null, Error.TILE_IS_FULL);
+        }
+
+        Point2D oldPosition = stone.getPosition();
+        if (oldPosition != null) {
+            Tile oldTile = board.getTile(oldPosition);
+            if (oldTile != null) {
+                oldTile.setResident(null);
+            }
+        }
+
+        tile.setResident(stone);
+        stone.setPosition(target);
+
+        return new Result<>(null, null);
     }
 }

@@ -21,8 +21,9 @@ final class Operation {
      * This method checks if the entered command is valid,
      * however it doesn't check if the entered parameters are
      * valid regarding the command.
-     *
+     * <p>
      * For that purpose, use instance method {@code validate()} instead.
+     *
      * @param inputString The whole string gathered from {@code Terminal.readLine()}
      * @return {@link Result<Operation>} result of the conversion
      */
@@ -54,6 +55,7 @@ final class Operation {
 
     /**
      * Validates if the parameters are in a valid format
+     *
      * @return Result with number of parameters entered
      */
     Result<Integer> validate() {
@@ -93,6 +95,7 @@ final class Operation {
 
     /**
      * Executes the operation with given command and parameters
+     *
      * @return {@link Result<String>} with value that'll be written
      * in terminal
      */
@@ -122,13 +125,16 @@ final class Operation {
                 return new Result<>(null, Error.NO_ONGOING_GAME);
         }
 
-        Point2D targetCoordinates = Point2D.parse(parameters[0]);
-        Result<Void> result = Game.current.place(stone, targetCoordinates);
-        if (result.isSuccessful()) {
-            return new Result<>(okString, null);
-        } else {
-            return new Result<>(null, result.error);
+        try {
+            Point2D targetCoordinates = Point2D.parse(parameters[0]);
+            Result<Void> result = Game.current.place(stone, targetCoordinates);
+            if (result.isSuccessful()) {
+                return new Result<>(okString, null);
+            } else {
+                return new Result<>(null, result.error);
+            }
+        } catch (NumberFormatException exception) {
+            return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
         }
     }
-
 }

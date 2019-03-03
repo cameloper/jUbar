@@ -39,4 +39,13 @@ class Tile {
         this.resident = resident;
 
     }
+
+    /**
+     * Gives if the tile is occupied by a {@link Figure} or not
+     *
+     * @return true or false
+     */
+    public boolean isFull() {
+        return resident != null;
+    }
 }

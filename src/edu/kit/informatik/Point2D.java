@@ -23,9 +23,10 @@ class Point2D {
     /**
      * Generates a Point2D object using raw input String
      * @param input Input String
-     * @return
+     * @return Point2D object
+     * @throws NumberFormatException If the components of given string do not match a valid number
      */
-    static Point2D parse(String input) {
+    static Point2D parse(String input) throws NumberFormatException {
         String[] components = input.split(";");
         int x = Integer.parseInt(components[0]);
         int y = Integer.parseInt(components[1]);
@@ -58,7 +59,7 @@ class Point2D {
         Point2D[] output = new Point2D[165];
         for (int row = 0; row < 11; row++) {
             for (int column = 0; column < 15; column++) {
-                output[row * 11 + column] = new Point2D(column, row);
+                output[row * 15 + column] = new Point2D(column, row);
             }
         }
 

@@ -35,7 +35,13 @@ abstract class Figure {
     }
 
     enum Type {
+        /**
+         * {@link Stone}
+         */
         STONE,
+        /**
+         * {@link Bar}
+         */
         BAR
     }
 }
