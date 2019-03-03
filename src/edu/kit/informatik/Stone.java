@@ -37,6 +37,18 @@ class Stone extends Figure {
         this.position = position;
     }
 
+    @Override
+    public String toString() {
+        switch (type) {
+            case VESTA:
+                return "V";
+            case CERES:
+                return "C";
+            default:
+                return "";
+        }
+    }
+
     enum Type {
         /**
          * Vesta stone type

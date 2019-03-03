@@ -123,4 +123,8 @@ final class Game {
 
         return new Result<>(null, null);
     }
+
+    Result<String> print() {
+        return new Result<>(board.toString(), null);
+    }
 }

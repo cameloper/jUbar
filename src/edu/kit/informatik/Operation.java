@@ -101,11 +101,21 @@ final class Operation {
      */
     Result<String> execute() {
         switch (command) {
+            case PRINT:
+                return printBoard();
             case SET_VC:
                 return placeStone();
             default:
                 return new Result<>(null, Error.OTHER);
         }
+    }
+
+    private Result<String> printBoard() {
+        if (Game.current == null) {
+            return new Result<>(null, Error.NO_ONGOING_GAME);
+        }
+
+        return Game.current.print();
     }
 
     private Result<String> placeStone() {
