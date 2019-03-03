@@ -25,9 +25,9 @@ class Board {
             return null;
         }
 
-        for (int i = 0; i < tiles.length; i++) {
-            if (tiles[i].getPosition().equals(point)) {
-                return tiles[i];
+        for (Tile tile : tiles) {
+            if (tile.getPosition().equals(point)) {
+                return tile;
             }
         }
 
