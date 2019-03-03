@@ -125,6 +125,7 @@ final class Game {
     }
 
     Result<String> print() {
+        // TODO: add error cases
         return new Result<>(board.toString(), null);
     }
 }

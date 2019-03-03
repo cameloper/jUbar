@@ -51,6 +51,10 @@ class Tile {
 
     @Override
     public String toString() {
+        if (resident == null) {
+            return "-";
+        }
+
         return resident.toString();
     }
 }
