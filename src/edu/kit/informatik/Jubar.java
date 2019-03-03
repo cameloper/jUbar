@@ -12,6 +12,8 @@ class Jubar {
      * @param args initial arguments. None expected
      */
     public static void main(String[] args) {
+        Game.newGame();
+
         while (isListening) {
             String input = Terminal.readLine();
             Result<Operation> parsingResult = Operation.buildWith(input);

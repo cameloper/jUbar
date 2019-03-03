@@ -116,6 +116,8 @@ final class Operation {
 
     private Result<String> execute() {
         switch (command) {
+            case RESET:
+                return resetGame();
             case PRINT:
                 return printBoard();
             case SET_VC:
@@ -125,6 +127,11 @@ final class Operation {
             default:
                 return new Result<>(null, Error.OTHER);
         }
+    }
+
+    private Result<String> resetGame() {
+        Game.newGame();
+        return new Result<>("OK", null);
     }
 
     private Result<String> quitGame() {
@@ -142,7 +149,7 @@ final class Operation {
 
     private Result<String> placeStone() {
         if (Game.current == null) {
-            Game.newGame();
+            return new Result<>(null, Error.NO_ONGOING_GAME);
         }
 
         Stone stone;
