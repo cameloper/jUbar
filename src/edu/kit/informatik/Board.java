@@ -1,5 +1,7 @@
 package edu.kit.informatik;
 
+import java.util.ArrayList;
+
 class Board {
     private Tile[] tiles;
 
@@ -32,6 +34,23 @@ class Board {
         }
 
         return null;
+    }
+
+    /**
+     * Gives the tiles with given coordinates
+     *
+     * @param points Coordinates of the requested Tiles
+     * @return Tiles with given coordinates
+     */
+    Tile[] getTiles(Point2D[] points) {
+        ArrayList<Tile> tiles = new ArrayList<>();
+        for (Point2D point : points) {
+            Tile tile = getTile(point);
+            if (tile != null) {
+                tiles.add(tile);
+            }
+        }
+        return tiles.toArray(new Tile[tiles.size()]);
     }
 
     @Override

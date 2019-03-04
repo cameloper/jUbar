@@ -28,6 +28,24 @@ class Bar extends Figure {
         return symbol;
     }
 
+    /**
+     * Public getter of Position
+     *
+     * @return value of private variable Position
+     */
+    public Vector2D getPosition() {
+        return position;
+    }
+
+    /**
+     * Public setter for position
+     *
+     * @param position New value for variable
+     */
+    public void setPosition(Vector2D position) {
+        this.position = position;
+    }
+
     @Override
     public String toString() {
         return "+";

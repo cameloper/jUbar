@@ -1,5 +1,8 @@
 package edu.kit.informatik;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 final class Game {
     /**
      * The ongoing game object to allow keeping some states
@@ -87,6 +90,7 @@ final class Game {
         if (subphase == Phase.Subphase.END) {
             phase = phase.next();
             subphase = Phase.Subphase.INIT;
+            missionControl.refreshDeck();
         }
     }
 
@@ -174,6 +178,25 @@ final class Game {
             return new Result<>(null, Error.NO_DIRECT_PATH);
         }
 
-        return new Result<>(null, Error.OTHER);
+        Symbol enteredSymbol = Symbol.initWith(path.length);
+
+        ArrayList<Symbol> allowedSymbols = missionControl.closestAvailableTo(lastRolledDice);
+        if (!allowedSymbols.contains(enteredSymbol)) {
+            return new Result<>(null, Error.INVALID_BAR);
+        }
+
+        Bar bar = missionControl.barWith(enteredSymbol);
+        Tile[] tiles = board.getTiles(path);
+        if (Arrays.stream(tiles).anyMatch(t -> t.isFull())) {
+            return new Result<>(null, Error.TILE_IS_FULL);
+        }
+
+        for (Tile tile : tiles) {
+            tile.setResident(bar);
+        }
+
+        bar.setPosition(position);
+
+        return new Result<>(null, null);
     }
 }
