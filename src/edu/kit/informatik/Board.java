@@ -1,5 +1,9 @@
 package edu.kit.informatik;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 class Board {
     private Tile[] tiles;
 
@@ -34,17 +38,27 @@ class Board {
         return null;
     }
 
+    /**
+     * Gives the tiles with given coordinates
+     *
+     * @param points Coordinates of the requested Tiles
+     * @return Tiles with given coordinates
+     */
+    List<Tile> getTiles(Point2D[] points) {
+        return Arrays.stream(points).map(point2D -> getTile(point2D)).collect(Collectors.toList());
+    }
+
     @Override
     public String toString() {
         StringBuilder outString = new StringBuilder();
         for (int row = 0; row < 11; row++) {
-            StringBuilder rowstring = new StringBuilder();
+            StringBuilder rowString = new StringBuilder();
             for (int column = 0; column < 15; column++) {
                 Tile tile = getTile(new Point2D(column, row));
-                rowstring.append(tile);
+                rowString.append(tile);
             }
 
-            outString.append(rowstring);
+            outString.append(rowString);
 
             if (row != 10) {
                 outString.append("\n");

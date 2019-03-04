@@ -14,9 +14,36 @@ class Bar extends Figure {
      * Default constructor for {@link Bar}
      * @param symbol Symbol of the bar
      */
-    public Bar(Symbol symbol) {
+    Bar(Symbol symbol) {
         this.position = null;
         this.symbol = symbol;
+    }
+
+    /**
+     * Public getter of Symbol
+     *
+     * @return value of private variable Symbol
+     */
+    Symbol getSymbol() {
+        return symbol;
+    }
+
+    /**
+     * Public getter of Position
+     *
+     * @return value of private variable Position
+     */
+    public Vector2D getPosition() {
+        return position;
+    }
+
+    /**
+     * Public setter for position
+     *
+     * @param position New value for variable
+     */
+    public void setPosition(Vector2D position) {
+        this.position = position;
     }
 
     @Override

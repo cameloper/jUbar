@@ -132,6 +132,8 @@ final class Operation {
                 return placeStone();
             case ROLL:
                 return roll();
+            case PLACE:
+                return placeBar();
             case QUIT:
                 return quitGame();
             default:
@@ -149,7 +151,12 @@ final class Operation {
             return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
         }
 
-        return Game.current.roll(symbol);
+        Result<Void> result = Game.current.roll(symbol);
+        if (result.isSuccessful()) {
+            return new Result<>(okString, null);
+        } else {
+            return new Result<>(null, Error.OTHER);
+        }
     }
 
     private Result<String> state() {
@@ -167,7 +174,7 @@ final class Operation {
 
     private Result<String> resetGame() {
         Game.newGame();
-        return new Result<>("OK", null);
+        return new Result<>(okString, null);
     }
 
     private Result<String> quitGame() {
@@ -203,6 +210,26 @@ final class Operation {
         try {
             Point2D targetCoordinates = Point2D.parse(parameters[0]);
             Result<Void> result = Game.current.place(stone, targetCoordinates);
+            if (result.isSuccessful()) {
+                return new Result<>(okString, null);
+            } else {
+                return new Result<>(null, result.error);
+            }
+        } catch (NumberFormatException exception) {
+            return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
+        }
+    }
+
+    private Result<String> placeBar() {
+        if (Game.current == null) {
+            return new Result<>(null, Error.NO_ONGOING_GAME);
+        }
+
+        try {
+            Point2D head = Point2D.parse(parameters[0]);
+            Point2D end = Point2D.parse(parameters[1]);
+            Vector2D vector = new Vector2D(head, end);
+            Result<Void> result = Game.current.place(vector);
             if (result.isSuccessful()) {
                 return new Result<>(okString, null);
             } else {

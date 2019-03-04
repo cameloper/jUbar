@@ -50,6 +50,31 @@ enum Symbol {
     }
 
     /**
+     * Initializes new Symbol with the given length
+     *
+     * @param length Length of bar
+     * @return new symbol object
+     */
+    static Symbol initWith(int length) {
+        switch (length) {
+            case 2:
+                return TWO;
+            case 3:
+                return THREE;
+            case 4:
+                return FOUR;
+            case 5:
+                return FIVE;
+            case 6:
+                return SIX;
+            case 7:
+                return DAWN;
+            default:
+                return null;
+        }
+    }
+
+    /**
      * Returns a new {@link Symbol} object using the given raw String value
      * @param rawValue Input string
      * @return Referred Symbol case
