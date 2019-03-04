@@ -20,6 +20,11 @@ class Vector2D {
         this.end = end;
     }
 
+    /**
+     * Method to find a direct path between head and end
+     * @return Array of points that form a direct vertical or horizontal path between
+     * head and end of this vector
+     */
     Point2D[] directPath() {
         boolean isVertical = head.getX() == end.getX();
         boolean isHorizontal = head.getY() == end.getY();

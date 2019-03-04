@@ -1,7 +1,5 @@
 package edu.kit.informatik;
 
-import java.util.HashMap;
-
 final class Game {
     /**
      * The ongoing game object to allow keeping some states
@@ -157,13 +155,19 @@ final class Game {
      * Changes the last rolled symbol to given symbol
      *
      * @param symbol New symbol
-     * @return Result that says "OK"
+     * @return Result that says "OK" or not
      */
     Result<Void> roll(Symbol symbol) {
         lastRolledDice = symbol;
         return new Result<>(null, null);
     }
 
+    /**
+     * Places the appropriate Bar onto given coordinates
+     *
+     * @param position Vector of positions MC gave
+     * @return Result that says "OK" or not
+     */
     Result<Void> place(Vector2D position) {
         Point2D[] path = position.directPath();
         if (path == null) {
