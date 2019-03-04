@@ -1,12 +1,10 @@
 package edu.kit.informatik;
 
-import java.util.HashMap;
-
 class MissionControl extends Player {
     /**
      * Collection of {@link Bar} objects the player has
      */
-    private HashMap<Symbol, Bar> deck;
+    private Bar[] deck;
 
     /**
      * Default constructor for {@link MissionControl}
@@ -16,16 +14,26 @@ class MissionControl extends Player {
     }
 
     /**
+     * Public getter of Deck
+     *
+     * @return value of private variable Deck
+     */
+    public Bar[] getDeck() {
+        return deck;
+    }
+
+    /**
      * Creates a new deck for the player
      */
     void refreshDeck() {
         deck = newDeck();
     }
 
-    private static HashMap<Symbol, Bar> newDeck() {
-        HashMap<Symbol, Bar> deck = new HashMap<>();
-        for (Symbol symbol : Symbol.values()) {
-            deck.put(symbol, new Bar(symbol));
+    private static Bar[] newDeck() {
+        Symbol[] symbols = Symbol.values();
+        Bar[] deck = new Bar[symbols.length];
+        for (int i = 0; i < symbols.length; i++) {
+            deck[i] = new Bar(symbols[i]);
         }
 
         return deck;

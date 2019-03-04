@@ -14,9 +14,18 @@ class Bar extends Figure {
      * Default constructor for {@link Bar}
      * @param symbol Symbol of the bar
      */
-    public Bar(Symbol symbol) {
+    Bar(Symbol symbol) {
         this.position = null;
         this.symbol = symbol;
+    }
+
+    /**
+     * Public getter of Symbol
+     *
+     * @return value of private variable Symbol
+     */
+    Symbol getSymbol() {
+        return symbol;
     }
 
     @Override

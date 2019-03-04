@@ -1,5 +1,7 @@
 package edu.kit.informatik;
 
+import java.util.HashMap;
+
 final class Game {
     /**
      * The ongoing game object to allow keeping some states
@@ -157,8 +159,17 @@ final class Game {
      * @param symbol New symbol
      * @return Result that says "OK"
      */
-    Result<String> roll(Symbol symbol) {
+    Result<Void> roll(Symbol symbol) {
         lastRolledDice = symbol;
-        return new Result<>("OK", null);
+        return new Result<>(null, null);
+    }
+
+    Result<Void> place(Vector2D position) {
+        Point2D[] path = position.directPath();
+        if (path == null) {
+            return new Result<>(null, Error.NO_DIRECT_PATH);
+        }
+
+        return new Result<>(null, Error.OTHER);
     }
 }

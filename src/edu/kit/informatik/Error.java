@@ -40,7 +40,11 @@ enum Error {
     /**
      * Given tile for movement etc. is not reachable from current tile
      */
-    TILE_UNREACHABLE;
+    TILE_UNREACHABLE,
+    /**
+     * No direct path between head and end
+     */
+    NO_DIRECT_PATH;
 
     @Override
     public String toString() {
@@ -65,6 +69,8 @@ enum Error {
                 return "requested target tile is full.";
             case TILE_UNREACHABLE:
                 return "there's no path to the requested tile.";
+            case NO_DIRECT_PATH:
+                return "there's no direct path between the two given coordinates.";
             default:
                 return "something happened.";
         }
