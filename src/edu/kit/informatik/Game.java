@@ -32,6 +32,8 @@ final class Game {
      */
     private Phase phase;
 
+    private int round;
+
     /**
      * The ongoing game subphase
      */
@@ -45,6 +47,7 @@ final class Game {
         nature = new Nature();
         missionControl = new MissionControl();
         phase = Phase.FIRST;
+        round = 0;
         subphase = Phase.Subphase.INIT;
     }
 
@@ -88,9 +91,15 @@ final class Game {
     void nextPhase() {
         subphase = subphase.next();
         if (subphase == Phase.Subphase.END) {
-            phase = phase.next();
-            subphase = Phase.Subphase.INIT;
-            missionControl.refreshDeck();
+            round++;
+            if (round == 7) {
+                round = 0;
+                phase = phase.next();
+                subphase = Phase.Subphase.INIT;
+                missionControl.refreshDeck();
+            } else {
+                subphase = Phase.Subphase.I;
+            }
         }
     }
 
