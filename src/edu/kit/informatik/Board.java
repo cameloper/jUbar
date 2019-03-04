@@ -41,10 +41,6 @@ class Board {
             StringBuilder rowstring = new StringBuilder();
             for (int column = 0; column < 15; column++) {
                 Tile tile = getTile(new Point2D(column, row));
-                if (column != 0) {
-                    rowstring.append(" ");
-                }
-
                 rowstring.append(tile);
             }
 
