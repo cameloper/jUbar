@@ -186,7 +186,7 @@ final class Game {
         }
 
         Bar bar = missionControl.barWith(enteredSymbol);
-        Tile[] tiles = board.getTiles(path);
+        Tile[] tiles = board.getTiles(path).toArray(new Tile[path.length]);
         if (Arrays.stream(tiles).anyMatch(t -> t.isFull())) {
             return new Result<>(null, Error.TILE_IS_FULL);
         }
