@@ -3,15 +3,15 @@ package edu.kit.informatik;
 import java.util.Arrays;
 
 final class Operation {
-    private static String okString = "OK";
+    private static final String OK_STRING = "OK";
     /**
      * The command entered by the user
      */
-    private Command command;
+    private final Command command;
     /**
      * Given parameters along with the entered command
      */
-    private String[] parameters;
+    private final String[] parameters;
 
     private Operation(Command command, String[] parameters) {
         this.command = command;
@@ -156,7 +156,7 @@ final class Operation {
         if (symbol == null) new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
 
         Result<Void> result = Game.current.roll(symbol);
-        if (result.isSuccessful()) return new Result<>(okString, null);
+        if (result.isSuccessful()) return new Result<>(OK_STRING, null);
         else return new Result<>(null, Error.OTHER);
     }
 
@@ -173,7 +173,7 @@ final class Operation {
 
     private Result<String> resetGame() {
         Game.newGame();
-        return new Result<>(okString, null);
+        return new Result<>(OK_STRING, null);
     }
 
     private Result<String> quitGame() {
@@ -192,7 +192,7 @@ final class Operation {
         try {
             Point2D targetCoordinates = Point2D.parse(parameters[0]);
             Result<Void> result = Game.current.place(targetCoordinates);
-            if (result.isSuccessful()) return new Result<>(okString, null);
+            if (result.isSuccessful()) return new Result<>(OK_STRING, null);
             else return new Result<>(null, result.error);
         } catch (NumberFormatException exception) {
             return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
@@ -209,7 +209,7 @@ final class Operation {
             Point2D end = Point2D.parse(parameters[1]);
             Vector2D vector = new Vector2D(head, end);
             Result<Void> result = Game.current.place(vector);
-            if (result.isSuccessful()) return new Result<>(okString, null);
+            if (result.isSuccessful()) return new Result<>(OK_STRING, null);
             else return new Result<>(null, result.error);
         } catch (NumberFormatException exception) {
             return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
@@ -225,7 +225,7 @@ final class Operation {
                     .toArray(Point2D[]::new);
 
             Result<Void> result = Game.current.move(stepCoordinates);
-            if (result.isSuccessful()) return new Result<>(okString, null);
+            if (result.isSuccessful()) return new Result<>(OK_STRING, null);
             else return new Result<>(null, result.error);
         } catch (NumberFormatException exception) {
             return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);

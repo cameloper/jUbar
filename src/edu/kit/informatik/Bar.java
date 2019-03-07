@@ -8,7 +8,7 @@ class Bar extends Figure {
     /**
      * Symbol of the bar
      */
-    private Symbol symbol;
+    private final Symbol symbol;
 
     /**
      * Default constructor for {@link Bar}
@@ -33,7 +33,7 @@ class Bar extends Figure {
      *
      * @return value of private variable Position
      */
-    public Vector2D getPosition() {
+    Vector2D getPosition() {
         return position;
     }
 
@@ -42,7 +42,7 @@ class Bar extends Figure {
      *
      * @param position New value for variable
      */
-    public void setPosition(Vector2D position) {
+    void setPosition(Vector2D position) {
         this.position = position;
     }
 

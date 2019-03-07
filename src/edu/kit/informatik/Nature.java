@@ -5,11 +5,11 @@ class Nature extends Player {
     /**
      * Vesta stone
      */
-    private Stone vesta;
+    private final Stone vesta;
     /**
      * Ceres stone
      */
-    private Stone ceres;
+    private final Stone ceres;
 
     /**
      * Default constructor of {@link Nature}

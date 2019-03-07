@@ -1,14 +1,14 @@
 package edu.kit.informatik;
 
 class Tile {
-    private Point2D position;
+    private final Point2D position;
     private Figure resident;
 
     /**
      * Default constructor for Tile
      * @param position position of the tile
      */
-    public Tile(Point2D position) {
+    Tile(Point2D position) {
         this.position = position;
     }
 
@@ -17,17 +17,8 @@ class Tile {
      *
      * @return value of private variable Position
      */
-    public Point2D getPosition() {
+    Point2D getPosition() {
         return position;
-    }
-
-    /**
-     * Public getter of Resident
-     *
-     * @return value of private variable Resident
-     */
-    public Figure getResident() {
-        return resident;
     }
 
     /**
@@ -35,7 +26,7 @@ class Tile {
      *
      * @param resident New value for variable
      */
-    public void setResident(Figure resident) {
+    void setResident(Figure resident) {
         this.resident = resident;
 
     }
@@ -45,11 +36,11 @@ class Tile {
      *
      * @return true or false
      */
-    public boolean isFull() {
+    boolean isFull() {
         return resident != null;
     }
 
-    public boolean isNeighborOf(Tile tile) {
+    boolean isNeighborOf(Tile tile) {
         int x1 = position.getX();
         int x2 = tile.position.getX();
 
@@ -59,7 +50,7 @@ class Tile {
         return x1 - x2 == 1 || x2 - x1 == 1 || y1 - y2 == 1 || y2 - y1 == 1;
     }
 
-    public boolean isAvailableNeighborOf(Tile tile) {
+    boolean isAvailableNeighborOf(Tile tile) {
         return isNeighborOf(tile) && resident == null;
     }
 
@@ -77,6 +68,8 @@ class Tile {
         if (this == obj) {
             return true;
         }
+
+        if (obj.getClass() != getClass()) return false;
 
         Tile tile = (Tile) obj;
         if (tile == null) {

@@ -1,7 +1,6 @@
 package edu.kit.informatik;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 final class Game {
     /**
@@ -12,17 +11,17 @@ final class Game {
     /**
      * Board status of 'this' game object
      */
-    private Board board;
+    private final Board board;
 
     /**
      * Nature player of this instance
      */
-    private Nature nature;
+    private final Nature nature;
 
     /**
      * Mission control player of this instance
      */
-    private MissionControl missionControl;
+    private final MissionControl missionControl;
 
     private Symbol lastRolledDice;
     private Symbol lastPlacedBar;
@@ -56,15 +55,6 @@ final class Game {
      */
     static void newGame() {
         Game.current = new Game();
-    }
-
-    /**
-     * Public getter of Nature
-     *
-     * @return value of private variable Nature
-     */
-    Nature getNature() {
-        return nature;
     }
 
     /**
@@ -223,6 +213,11 @@ final class Game {
         return new Result<>(null, null);
     }
 
+    /**
+     * Moves the current game stone through the given path
+     * @param steps Each step the stone has to take
+     * @return Result without value
+     */
     Result<Void> move(Point2D[] steps) {
         Stone stone = currentStone();
         if (stone == null) return new Result<>(null, Error.OTHER);

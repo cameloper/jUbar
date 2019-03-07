@@ -3,7 +3,7 @@ package edu.kit.informatik;
 import java.util.Arrays;
 
 class Board {
-    private Tile[] tiles;
+    private final Tile[] tiles;
 
     /**
      * Default constructor for {@link Board}
