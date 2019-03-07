@@ -8,11 +8,11 @@ class Result<T> {
     /**
      * Value of result, if successful
      */
-    T value;
+    final T value;
     /**
      * The reason result is not successful or a warning
      */
-    Error error;
+    final Error error;
 
     /**
      * Constructor for {@link Result}

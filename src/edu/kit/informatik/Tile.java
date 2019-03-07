@@ -1,14 +1,14 @@
 package edu.kit.informatik;
 
 class Tile {
-    private Point2D position;
+    private final Point2D position;
     private Figure resident;
 
     /**
      * Default constructor for Tile
      * @param position position of the tile
      */
-    public Tile(Point2D position) {
+    Tile(Point2D position) {
         this.position = position;
     }
 
@@ -17,17 +17,8 @@ class Tile {
      *
      * @return value of private variable Position
      */
-    public Point2D getPosition() {
+    Point2D getPosition() {
         return position;
-    }
-
-    /**
-     * Public getter of Resident
-     *
-     * @return value of private variable Resident
-     */
-    public Figure getResident() {
-        return resident;
     }
 
     /**
@@ -35,7 +26,7 @@ class Tile {
      *
      * @param resident New value for variable
      */
-    public void setResident(Figure resident) {
+    void setResident(Figure resident) {
         this.resident = resident;
 
     }
@@ -45,8 +36,35 @@ class Tile {
      *
      * @return true or false
      */
-    public boolean isFull() {
+    boolean isFull() {
         return resident != null;
+    }
+
+    /**
+     * Gives whether or not the given tile is adjacent to this instance
+     *
+     * @param tile supposed neighbor
+     * @return true if two tiles are neighbors
+     */
+    boolean isNeighborOf(Tile tile) {
+        int x1 = position.getX();
+        int x2 = tile.position.getX();
+
+        int y1 = position.getY();
+        int y2 = tile.position.getY();
+
+        return ((x1 - x2 == 1 || x2 - x1 == 1) && y1 == y2)
+                != ((y1 - y2 == 1 || y2 - y1 == 1) && x1 == x2);
+    }
+
+    /**
+     * Gives whether or not the given tile is adjacent to this instance and is empty
+     *
+     * @param tile supposed neighbor
+     * @return true if tiles are neighbors and given tile is empty
+     */
+    boolean isAvailableNeighborOf(Tile tile) {
+        return isNeighborOf(tile) && resident == null;
     }
 
     @Override
@@ -56,5 +74,21 @@ class Tile {
         }
 
         return resident.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj.getClass() != getClass()) return false;
+
+        Tile tile = (Tile) obj;
+        if (tile == null) {
+            return false;
+        }
+
+        return position.equals(tile.position);
     }
 }

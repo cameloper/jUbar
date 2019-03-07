@@ -8,7 +8,7 @@ class Stone extends Figure {
     /**
      * {@link Type} of the stone
      */
-    private Type type;
+    private final Type type;
 
     /**
      * Default constructor of {@link Stone}
@@ -24,7 +24,7 @@ class Stone extends Figure {
      *
      * @return value of private variable Position
      */
-    public Point2D getPosition() {
+    Point2D getPosition() {
         return position;
     }
 
@@ -33,7 +33,7 @@ class Stone extends Figure {
      *
      * @param position New value for variable
      */
-    public void setPosition(Point2D position) {
+    void setPosition(Point2D position) {
         this.position = position;
     }
 

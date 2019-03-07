@@ -4,11 +4,11 @@ class Point2D {
     /**
      * Position on the X-Axis
      */
-    private int x;
+    private final int x;
     /**
      * Position on the Y-Axis
      */
-    private int y;
+    private final int y;
 
     /**
      * Default constructor for Point2D
@@ -28,8 +28,8 @@ class Point2D {
      */
     static Point2D parse(String input) throws NumberFormatException {
         String[] components = input.split(";");
-        int x = Integer.parseInt(components[0]);
-        int y = Integer.parseInt(components[1]);
+        int x = Integer.parseInt(components[1]);
+        int y = Integer.parseInt(components[0]);
         return new Point2D(x, y);
     }
 
@@ -72,10 +72,10 @@ class Point2D {
             return true;
         }
 
+        if (obj.getClass() != getClass()) return false;
+
         Point2D point2D = (Point2D) obj;
-        if (point2D == null) {
-            return false;
-        }
+        if (point2D == null) return false;
 
         return point2D.x == x && point2D.y == y;
     }

@@ -4,11 +4,11 @@ class Vector2D {
     /**
      * Starting point of the vector
      */
-    private Point2D head;
+    private final Point2D head;
     /**
      * Ending point of the vector
      */
-    private Point2D end;
+    private final Point2D end;
 
     /**
      * Default constructor for Vector2D

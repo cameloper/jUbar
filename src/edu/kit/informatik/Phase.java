@@ -20,14 +20,8 @@ enum Phase {
      * @return {@link Phase} next phase of game
      */
     Phase next() {
-        switch (this) {
-            case FIRST:
-                return SECOND;
-            case SECOND:
-                return END;
-            default:
-                return null;
-        }
+        if (this == FIRST) return SECOND;
+        else return END;
     }
 
     enum Subphase {
@@ -65,10 +59,8 @@ enum Phase {
                     return II;
                 case II:
                     return III;
-                case III:
-                    return END;
                 default:
-                    return null;
+                    return END;
             }
         }
     }

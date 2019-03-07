@@ -16,15 +16,6 @@ class MissionControl extends Player {
     }
 
     /**
-     * Public getter of Deck
-     *
-     * @return value of private variable Deck
-     */
-    public Bar[] getDeck() {
-        return deck;
-    }
-
-    /**
      * Gives the bar in Deck with given symbol.
      *
      * @param symbol Symbol the bar should have

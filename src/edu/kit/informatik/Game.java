@@ -1,7 +1,6 @@
 package edu.kit.informatik;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 final class Game {
     /**
@@ -12,17 +11,17 @@ final class Game {
     /**
      * Board status of 'this' game object
      */
-    private Board board;
+    private final Board board;
 
     /**
      * Nature player of this instance
      */
-    private Nature nature;
+    private final Nature nature;
 
     /**
      * Mission control player of this instance
      */
-    private MissionControl missionControl;
+    private final MissionControl missionControl;
 
     private Symbol lastRolledDice;
     private Symbol lastPlacedBar;
@@ -47,7 +46,7 @@ final class Game {
         nature = new Nature();
         missionControl = new MissionControl();
         phase = Phase.FIRST;
-        round = 0;
+        round = 1;
         subphase = Phase.Subphase.INIT;
     }
 
@@ -56,15 +55,6 @@ final class Game {
      */
     static void newGame() {
         Game.current = new Game();
-    }
-
-    /**
-     * Public getter of Nature
-     *
-     * @return value of private variable Nature
-     */
-    Nature getNature() {
-        return nature;
     }
 
     /**
@@ -81,7 +71,7 @@ final class Game {
      *
      * @return value of private variable Subphase
      */
-    public Phase.Subphase getSubphase() {
+    Phase.Subphase getSubphase() {
         return subphase;
     }
 
@@ -89,43 +79,51 @@ final class Game {
      * Switches to the next game phase
      */
     void nextPhase() {
+        if (phase == Phase.END) return;
         subphase = subphase.next();
         if (subphase == Phase.Subphase.END) {
             round++;
             if (round == 7) {
-                round = 0;
+                round = 1;
                 phase = phase.next();
-                subphase = Phase.Subphase.INIT;
-                missionControl.refreshDeck();
-            } else {
-                subphase = Phase.Subphase.I;
-            }
+                if (phase == Phase.SECOND) {
+                    subphase = Phase.Subphase.INIT;
+                    missionControl.refreshDeck();
+                }
+            } else subphase = Phase.Subphase.I;
+        }
+    }
+
+    private Stone currentStone() {
+        switch (phase) {
+            case FIRST:
+                return nature.getVesta();
+            case SECOND:
+                return nature.getCeres();
+            default:
+                return null;
         }
     }
 
     /**
      * Places the given Stone to given coordinates
      *
-     * @param stone  {@link Stone} to place
      * @param target Target tile coordinates
      * @return Empty result if successful. Otherwise Result with Error
      */
-    Result<Void> place(Stone stone, Point2D target) {
-        Tile tile = board.getTile(target);
-        if (tile == null) {
-            return new Result<>(null, Error.TILE_DOES_NOT_EXIST);
-        }
+    Result<Void> place(Point2D target) {
+        Stone stone = currentStone();
+        if (stone == null) return new Result<>(null, Error.OTHER);
 
-        if (tile.isFull()) {
-            return new Result<>(null, Error.TILE_IS_FULL);
-        }
+        Tile tile = board.getTile(target);
+        if (tile == null) return new Result<>(null, Error.TILE_DOES_NOT_EXIST);
+
+        if (tile.isFull()) return new Result<>(null, Error.TILE_IS_FULL);
 
         Point2D oldPosition = stone.getPosition();
         if (oldPosition != null) {
             Tile oldTile = board.getTile(oldPosition);
-            if (oldTile != null) {
-                oldTile.setResident(null);
-            }
+            if (oldTile != null) oldTile.setResident(null);
         }
 
         tile.setResident(stone);
@@ -195,16 +193,56 @@ final class Game {
         }
 
         Bar bar = missionControl.barWith(enteredSymbol);
-        Tile[] tiles = board.getTiles(path).toArray(new Tile[path.length]);
-        if (Arrays.stream(tiles).anyMatch(t -> t.isFull())) {
-            return new Result<>(null, Error.TILE_IS_FULL);
+        Tile[] tiles = board.getTiles(path);
+
+        for (Tile tile : tiles) {
+            if (tile == null && enteredSymbol != Symbol.DAWN) {
+                return new Result<>(null, Error.INVALID_PLACEMENT);
+            } else if (tile != null && tile.isFull()) {
+                return new Result<>(null, Error.TILE_IS_FULL);
+            }
         }
 
         for (Tile tile : tiles) {
-            tile.setResident(bar);
+            if (tile != null) tile.setResident(bar);
         }
 
         bar.setPosition(position);
+        lastPlacedBar = enteredSymbol;
+
+        return new Result<>(null, null);
+    }
+
+    /**
+     * Moves the current game stone through the given path
+     * @param steps Each step the stone has to take
+     * @return Result without value
+     */
+    Result<Void> move(Point2D[] steps) {
+        Stone stone = currentStone();
+        if (stone == null) return new Result<>(null, Error.OTHER);
+
+        if (steps.length > lastPlacedBar.length()) {
+            return new Result<>(null, Error.PATH_TOO_LONG);
+        }
+
+        Tile currentTile = board.getTile(stone.getPosition());
+        Tile[] tiles = board.getTiles(steps);
+        Tile newPosition = tiles[tiles.length - 1];
+
+        if (!tiles[0].isNeighborOf(currentTile)) return new Result<>(null, Error.TILE_UNREACHABLE);
+        for (int i = 0; i < tiles.length - 1; i++) {
+            Tile tileX = tiles[i];
+            Tile tileY = tiles[i + 1];
+            if (!tileY.isAvailableNeighborOf(tileX)
+                && !(tileY.equals(currentTile) && tileY.isNeighborOf(tileX))) {
+                return new Result<>(null, Error.TILE_UNREACHABLE);
+            }
+        }
+
+        currentTile.setResident(null);
+        newPosition.setResident(stone);
+        stone.setPosition(newPosition.getPosition());
 
         return new Result<>(null, null);
     }
