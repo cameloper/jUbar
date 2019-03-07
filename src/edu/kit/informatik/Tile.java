@@ -40,6 +40,12 @@ class Tile {
         return resident != null;
     }
 
+    /**
+     * Gives whether or not the given tile is adjacent to this instance
+     *
+     * @param tile supposed neighbor
+     * @return true if two tiles are neighbors
+     */
     boolean isNeighborOf(Tile tile) {
         int x1 = position.getX();
         int x2 = tile.position.getX();
@@ -51,6 +57,12 @@ class Tile {
                 != ((y1 - y2 == 1 || y2 - y1 == 1) && x1 == x2);
     }
 
+    /**
+     * Gives whether or not the given tile is adjacent to this instance and is empty
+     *
+     * @param tile supposed neighbor
+     * @return true if tiles are neighbors and given tile is empty
+     */
     boolean isAvailableNeighborOf(Tile tile) {
         return isNeighborOf(tile) && resident == null;
     }
