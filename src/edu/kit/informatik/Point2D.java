@@ -28,8 +28,8 @@ class Point2D {
      */
     static Point2D parse(String input) throws NumberFormatException {
         String[] components = input.split(";");
-        int x = Integer.parseInt(components[0]);
-        int y = Integer.parseInt(components[1]);
+        int x = Integer.parseInt(components[1]);
+        int y = Integer.parseInt(components[0]);
         return new Point2D(x, y);
     }
 

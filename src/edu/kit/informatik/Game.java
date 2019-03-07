@@ -230,15 +230,15 @@ final class Game {
 
         Tile currentTile = board.getTile(stone.getPosition());
         Tile[] tiles = board.getTiles(steps);
+        Tile newPosition = tiles[tiles.length - 1];
 
-        if (!tiles[0].isNeighborOf(currentTile));
+        if (!tiles[0].isNeighborOf(currentTile)) return new Result<>(null, Error.TILE_UNREACHABLE);
         for (int i = 0; i < tiles.length - 1; i++) {
-            if (!tiles[i + 1].isAvailableNeighborOf(tiles[i])) {
-                return new Result<>(null, Error.PATH_TOO_LONG);
+            if (!tiles[i + 1].isAvailableNeighborOf(tiles[i]) && !tiles[i + 1].equals(currentTile)) {
+                return new Result<>(null, Error.TILE_UNREACHABLE);
             }
         }
 
-        Tile newPosition = tiles[tiles.length - 1];
         currentTile.setResident(null);
         newPosition.setResident(stone);
         stone.setPosition(newPosition.getPosition());

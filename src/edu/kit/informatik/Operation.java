@@ -66,7 +66,7 @@ final class Operation {
 
             assert parameterType != null;
             if ((parameters.length != parameterType.numberOfParams())
-                    && (!parameterType.numberIsOptional() || parameters.length < 2)) {
+                    && (!parameterType.numberIsOptional() || parameters.length < 1)) {
                 return new Result<>(null, Error.INVALID_NUMBEROF_PARAMETERS);
             }
 

@@ -71,4 +71,18 @@ class Tile {
 
         return resident.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        Tile tile = (Tile) obj;
+        if (tile == null) {
+            return false;
+        }
+
+        return position.equals(tile.position);
+    }
 }
