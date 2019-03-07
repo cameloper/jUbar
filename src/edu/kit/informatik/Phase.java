@@ -23,10 +23,8 @@ enum Phase {
         switch (this) {
             case FIRST:
                 return SECOND;
-            case SECOND:
-                return END;
             default:
-                return null;
+                return END;
         }
     }
 
@@ -65,10 +63,8 @@ enum Phase {
                     return II;
                 case II:
                     return III;
-                case III:
-                    return END;
                 default:
-                    return null;
+                    return END;
             }
         }
     }

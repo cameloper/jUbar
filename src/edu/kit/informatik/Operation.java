@@ -120,6 +120,10 @@ final class Operation {
 
     private Result<String> execute() {
         if (!command.isValidIn(Game.current.getSubphase())) {
+            if (Game.current.getPhase() == Phase.END) {
+                return new Result<>(null, Error.NO_ONGOING_GAME);
+            }
+
             return new Result<>(null, Error.INVALID_MOVE);
         }
 

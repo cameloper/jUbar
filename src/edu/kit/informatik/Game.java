@@ -47,7 +47,7 @@ final class Game {
         nature = new Nature();
         missionControl = new MissionControl();
         phase = Phase.FIRST;
-        round = 0;
+        round = 1;
         subphase = Phase.Subphase.INIT;
     }
 
@@ -89,16 +89,29 @@ final class Game {
      * Switches to the next game phase
      */
     void nextPhase() {
+        if (phase == Phase.END) return;
         subphase = subphase.next();
         if (subphase == Phase.Subphase.END) {
             round++;
             if (round == 7) {
-                round = 0;
+                round = 1;
                 phase = phase.next();
-                subphase = Phase.Subphase.INIT;
-                missionControl.refreshDeck();
+                if (phase == Phase.SECOND) {
+                    subphase = Phase.Subphase.INIT;
+                    missionControl.refreshDeck();
+                }
             } else subphase = Phase.Subphase.I;
         }
+    }
+
+    // TODO: REMOVE THIS CODE IT IS NOT IMPORTANT
+    /**
+     * Public getter of Round
+     *
+     * @return value of private variable Round
+     */
+    public int getRound() {
+        return round;
     }
 
     private Stone currentStone() {
