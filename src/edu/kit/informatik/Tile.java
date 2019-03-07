@@ -47,7 +47,8 @@ class Tile {
         int y1 = position.getY();
         int y2 = tile.position.getY();
 
-        return x1 - x2 == 1 || x2 - x1 == 1 || y1 - y2 == 1 || y2 - y1 == 1;
+        return ((x1 - x2 == 1 || x2 - x1 == 1) && y1 == y2)
+                != ((y1 - y2 == 1 || y2 - y1 == 1) && x1 == x2);
     }
 
     boolean isAvailableNeighborOf(Tile tile) {

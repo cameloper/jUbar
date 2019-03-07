@@ -232,7 +232,10 @@ final class Game {
 
         if (!tiles[0].isNeighborOf(currentTile)) return new Result<>(null, Error.TILE_UNREACHABLE);
         for (int i = 0; i < tiles.length - 1; i++) {
-            if (!tiles[i + 1].isAvailableNeighborOf(tiles[i]) && !tiles[i + 1].equals(currentTile)) {
+            Tile tileX = tiles[i];
+            Tile tileY = tiles[i + 1];
+            if (!tileY.isAvailableNeighborOf(tileX)
+                && !(tileY.equals(currentTile) && tileY.isNeighborOf(tileX))) {
                 return new Result<>(null, Error.TILE_UNREACHABLE);
             }
         }
