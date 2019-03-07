@@ -48,7 +48,15 @@ enum Error {
     /**
      * Not the closest bar
      */
-    INVALID_BAR;
+    INVALID_BAR,
+    /**
+     * Bar is out of the board etc.
+     */
+    INVALID_PLACEMENT,
+    /**
+     * Path is longer than allowed
+     */
+    PATH_TOO_LONG;
 
     @Override
     public String toString() {
@@ -77,6 +85,10 @@ enum Error {
                 return "there's no direct path between the two given coordinates.";
             case INVALID_BAR:
                 return "the bar you played is not closest option to rolled dice.";
+            case INVALID_PLACEMENT:
+                return "the bar you played cannot be placed on requested coordinates.";
+            case PATH_TOO_LONG:
+                return "the number of steps you entered is higher than the last placed bar length.";
             default:
                 return "something happened.";
         }

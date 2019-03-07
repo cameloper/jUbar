@@ -81,7 +81,7 @@ final class Game {
      *
      * @return value of private variable Subphase
      */
-    public Phase.Subphase getSubphase() {
+    Phase.Subphase getSubphase() {
         return subphase;
     }
 
@@ -97,35 +97,40 @@ final class Game {
                 phase = phase.next();
                 subphase = Phase.Subphase.INIT;
                 missionControl.refreshDeck();
-            } else {
-                subphase = Phase.Subphase.I;
-            }
+            } else subphase = Phase.Subphase.I;
+        }
+    }
+
+    private Stone currentStone() {
+        switch (phase) {
+            case FIRST:
+                return nature.getVesta();
+            case SECOND:
+                return nature.getCeres();
+            default:
+                return null;
         }
     }
 
     /**
      * Places the given Stone to given coordinates
      *
-     * @param stone  {@link Stone} to place
      * @param target Target tile coordinates
      * @return Empty result if successful. Otherwise Result with Error
      */
-    Result<Void> place(Stone stone, Point2D target) {
-        Tile tile = board.getTile(target);
-        if (tile == null) {
-            return new Result<>(null, Error.TILE_DOES_NOT_EXIST);
-        }
+    Result<Void> place(Point2D target) {
+        Stone stone = currentStone();
+        if (stone == null) return new Result<>(null, Error.OTHER);
 
-        if (tile.isFull()) {
-            return new Result<>(null, Error.TILE_IS_FULL);
-        }
+        Tile tile = board.getTile(target);
+        if (tile == null) return new Result<>(null, Error.TILE_DOES_NOT_EXIST);
+
+        if (tile.isFull()) return new Result<>(null, Error.TILE_IS_FULL);
 
         Point2D oldPosition = stone.getPosition();
         if (oldPosition != null) {
             Tile oldTile = board.getTile(oldPosition);
-            if (oldTile != null) {
-                oldTile.setResident(null);
-            }
+            if (oldTile != null) oldTile.setResident(null);
         }
 
         tile.setResident(stone);
@@ -195,16 +200,48 @@ final class Game {
         }
 
         Bar bar = missionControl.barWith(enteredSymbol);
-        Tile[] tiles = board.getTiles(path).toArray(new Tile[path.length]);
-        if (Arrays.stream(tiles).anyMatch(t -> t.isFull())) {
-            return new Result<>(null, Error.TILE_IS_FULL);
+        Tile[] tiles = board.getTiles(path);
+
+        for (Tile tile : tiles) {
+            if (tile == null && enteredSymbol != Symbol.DAWN) {
+                return new Result<>(null, Error.INVALID_PLACEMENT);
+            } else if (tile != null && tile.isFull()) {
+                return new Result<>(null, Error.TILE_IS_FULL);
+            }
         }
 
         for (Tile tile : tiles) {
-            tile.setResident(bar);
+            if (tile != null) tile.setResident(bar);
         }
 
         bar.setPosition(position);
+        lastPlacedBar = enteredSymbol;
+
+        return new Result<>(null, null);
+    }
+
+    Result<Void> move(Point2D[] steps) {
+        Stone stone = currentStone();
+        if (stone == null) return new Result<>(null, Error.OTHER);
+
+        if (steps.length > lastPlacedBar.length()) {
+            return new Result<>(null, Error.PATH_TOO_LONG);
+        }
+
+        Tile currentTile = board.getTile(stone.getPosition());
+        Tile[] tiles = board.getTiles(steps);
+
+        if (!tiles[0].isNeighborOf(currentTile));
+        for (int i = 0; i < tiles.length - 1; i++) {
+            if (!tiles[i + 1].isAvailableNeighborOf(tiles[i])) {
+                return new Result<>(null, Error.PATH_TOO_LONG);
+            }
+        }
+
+        Tile newPosition = tiles[tiles.length - 1];
+        currentTile.setResident(null);
+        newPosition.setResident(stone);
+        stone.setPosition(newPosition.getPosition());
 
         return new Result<>(null, null);
     }

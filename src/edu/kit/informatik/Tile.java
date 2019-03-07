@@ -49,6 +49,20 @@ class Tile {
         return resident != null;
     }
 
+    public boolean isNeighborOf(Tile tile) {
+        int x1 = position.getX();
+        int x2 = tile.position.getX();
+
+        int y1 = position.getY();
+        int y2 = tile.position.getY();
+
+        return x1 - x2 == 1 || x2 - x1 == 1 || y1 - y2 == 1 || y2 - y1 == 1;
+    }
+
+    public boolean isAvailableNeighborOf(Tile tile) {
+        return isNeighborOf(tile) && resident == null;
+    }
+
     @Override
     public String toString() {
         if (resident == null) {

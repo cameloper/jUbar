@@ -184,7 +184,7 @@ enum Command {
          * @return true if given string is a coordinate, otherwise false
          */
         static boolean isCoordinate(String input) {
-            return input.matches("([0-9]{1,2});([0-9]{1,2})");
+            return input.matches("(-?[0-9]{1,2});-?([0-9]{1,2})");
         }
     }
 }

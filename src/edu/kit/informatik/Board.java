@@ -1,8 +1,6 @@
 package edu.kit.informatik;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 class Board {
     private Tile[] tiles;
@@ -44,8 +42,8 @@ class Board {
      * @param points Coordinates of the requested Tiles
      * @return Tiles with given coordinates
      */
-    List<Tile> getTiles(Point2D[] points) {
-        return Arrays.stream(points).map(point2D -> getTile(point2D)).collect(Collectors.toList());
+    Tile[] getTiles(Point2D[] points) {
+        return Arrays.stream(points).map(this::getTile).toArray(Tile[]::new);
     }
 
     @Override
