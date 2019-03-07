@@ -104,16 +104,6 @@ final class Game {
         }
     }
 
-    // TODO: REMOVE THIS CODE IT IS NOT IMPORTANT
-    /**
-     * Public getter of Round
-     *
-     * @return value of private variable Round
-     */
-    public int getRound() {
-        return round;
-    }
-
     private Stone currentStone() {
         switch (phase) {
             case FIRST:
