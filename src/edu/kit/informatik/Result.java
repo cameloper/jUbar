@@ -15,6 +15,9 @@ class Result<T> {
      */
     final Error error;
 
+    /**
+     * Parameter that will replace &p (if exists) in error message
+     */
     String errorParameter = "";
 
     /**
