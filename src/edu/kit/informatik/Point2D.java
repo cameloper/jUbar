@@ -66,6 +66,36 @@ class Point2D {
         return output;
     }
 
+    /**
+     * Gets all adjacent Points of this instance
+     *
+     * @return N, W, E, S of the center point
+     */
+    Point2D[] neighbors() {
+        return new Point2D[]{
+                west(),
+                north(),
+                east(),
+                south()
+        };
+    }
+
+    private Point2D west() {
+        return new Point2D(x - 1, y);
+    }
+
+    private Point2D north() {
+        return new Point2D(x, y + 1);
+    }
+
+    private Point2D east() {
+        return new Point2D(x + 1, y);
+    }
+
+    private Point2D south() {
+        return new Point2D(x, y - 1);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

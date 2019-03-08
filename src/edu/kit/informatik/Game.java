@@ -149,7 +149,7 @@ final class Game {
     /**
      * Gives the current state of requested tile
      *
-     * @param point Requested tile coordinations
+     * @param point Requested tile coordinates
      * @return Result with "-" for empty, "+" for MC Bars, "V" or "C" for Nature stones
      */
     Result<String> stateOf(Point2D point) {
@@ -245,5 +245,28 @@ final class Game {
         stone.setPosition(newPosition.getPosition());
 
         return new Result<>(null, null);
+    }
+
+    /**
+     * Does a BFS and returns result
+     *
+     * @return Result with an integer
+     */
+    Result<Integer> showResult() {
+        Point2D vestaPosition = nature.getVesta().getPosition();
+        Point2D ceresPosition = nature.getCeres().getPosition();
+
+        int fV = board.getReachablePoints(vestaPosition, Stone.Type.VESTA).length; // Playroom of vesta
+        int fC = board.getReachablePoints(ceresPosition, Stone.Type.CERES).length; // Playroom of ceres
+
+        // E = max{F (C), F (V )} + [max{F (C), F (V )} − min{F (C), F (V )}]
+
+        int maxF = Math.max(fC, fV);
+        int minF = Math.min(fC, fV);
+
+        int result = maxF + (maxF - minF);
+
+        return new Result<>(result, null);
+
     }
 }

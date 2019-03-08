@@ -18,7 +18,7 @@ class Result<T> {
      * Constructor for {@link Result}
      *
      * @param value result value
-     * @param error first error that occured
+     * @param error first error that occurred
      */
     Result(T value, Error error) {
         this.value = value;

@@ -4,6 +4,9 @@ class Tile {
     private final Point2D position;
     private Figure resident;
 
+    private boolean markedForVesta = false;
+    private boolean markedForCeres = false;
+
     /**
      * Default constructor for Tile
      * @param position position of the tile
@@ -19,6 +22,41 @@ class Tile {
      */
     Point2D getPosition() {
         return position;
+    }
+
+    /**
+     * Public setter for BFS markers
+     *
+     * @param stone BFS Stone
+     */
+    void setMarkedFor(Stone.Type stone) {
+        switch (stone) {
+            case CERES:
+                markedForCeres = true;
+                break;
+            case VESTA:
+                markedForVesta = true;
+                break;
+            default:
+                return;
+        }
+    }
+
+    /**
+     * Public getter of BFS markers
+     *
+     * @param stone BFS Stone
+     * @return Marker value
+     */
+    boolean getMarkedFor(Stone.Type stone) {
+        switch (stone) {
+            case CERES:
+                return markedForCeres;
+            case VESTA:
+                return markedForVesta;
+            default:
+                return false;
+        }
     }
 
     /**

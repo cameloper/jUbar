@@ -67,7 +67,7 @@ final class Operation {
             assert parameterType != null;
             if ((parameters.length != parameterType.numberOfParams())
                     && (!parameterType.numberIsOptional() || parameters.length < 1)) {
-                return new Result<>(null, Error.INVALID_NUMBEROF_PARAMETERS);
+                return new Result<>(null, Error.INVALID_NUMBER_OF_PARAMETERS);
             }
 
             for (String parameter : parameters) {
@@ -91,7 +91,7 @@ final class Operation {
 
             return new Result<>(parameters.length, null);
         } catch (NullPointerException exception) {
-            return new Result<>(null, Error.INVALID_NUMBEROF_PARAMETERS);
+            return new Result<>(null, Error.INVALID_NUMBER_OF_PARAMETERS);
         }
     }
 
@@ -142,6 +142,8 @@ final class Operation {
                 return placeBar();
             case MOVE:
                 return move();
+            case SHOW_RESULT:
+                return showResult();
             case QUIT:
                 return quitGame();
             default:
@@ -230,5 +232,10 @@ final class Operation {
         } catch (NumberFormatException exception) {
             return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
         }
+    }
+
+    private Result<String> showResult() {
+        Result<Integer> result = Game.current.showResult();
+        return new Result<>(String.format("%d", result.value), null);
     }
 }

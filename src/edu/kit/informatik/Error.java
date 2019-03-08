@@ -16,7 +16,7 @@ enum Error {
     /**
      * Invalid number of given parameters for the entered command
      */
-    INVALID_NUMBEROF_PARAMETERS,
+    INVALID_NUMBER_OF_PARAMETERS,
     /**
      * Given parameters are not in correct format for the entered command
      */
@@ -67,7 +67,7 @@ enum Error {
                 return "no input received from Terminal.";
             case INVALID_COMMAND:
                 return "entered text does not refer to a valid command.";
-            case INVALID_NUMBEROF_PARAMETERS:
+            case INVALID_NUMBER_OF_PARAMETERS:
                 return "number of given parameters are invalid for the entered command.";
             case INVALID_PARAMETER_FORMATTING:
                 return "given parameters are not in correct format for the entered command.";
