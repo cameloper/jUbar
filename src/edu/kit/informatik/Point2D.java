@@ -66,17 +66,49 @@ class Point2D {
         return output;
     }
 
+    /**
+     * Gets all adjacent Points of this instance
+     *
+     * @return N, W, E, S of the center point
+     */
+    Point2D[] neighbors() {
+        return new Point2D[]{
+                west(),
+                north(),
+                east(),
+                south()
+        };
+    }
+
+    private Point2D west() {
+        return new Point2D(x - 1, y);
+    }
+
+    private Point2D north() {
+        return new Point2D(x, y + 1);
+    }
+
+    private Point2D east() {
+        return new Point2D(x + 1, y);
+    }
+
+    private Point2D south() {
+        return new Point2D(x, y - 1);
+    }
+
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
+        if (this == obj) return true;
 
         if (obj.getClass() != getClass()) return false;
 
         Point2D point2D = (Point2D) obj;
-        if (point2D == null) return false;
 
         return point2D.x == x && point2D.y == y;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d;%d", y, x);
     }
 }

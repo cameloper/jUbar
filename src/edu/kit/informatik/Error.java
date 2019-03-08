@@ -16,7 +16,7 @@ enum Error {
     /**
      * Invalid number of given parameters for the entered command
      */
-    INVALID_NUMBEROF_PARAMETERS,
+    INVALID_NUMBER_OF_PARAMETERS,
     /**
      * Given parameters are not in correct format for the entered command
      */
@@ -67,8 +67,9 @@ enum Error {
                 return "no input received from Terminal.";
             case INVALID_COMMAND:
                 return "entered text does not refer to a valid command.";
-            case INVALID_NUMBEROF_PARAMETERS:
-                return "number of given parameters are invalid for the entered command.";
+            case INVALID_NUMBER_OF_PARAMETERS:
+                return "number of given parameters are invalid for the entered command."
+                        + " Number of expected parameters: &p";
             case INVALID_PARAMETER_FORMATTING:
                 return "given parameters are not in correct format for the entered command.";
             case NO_ONGOING_GAME:
@@ -76,19 +77,20 @@ enum Error {
             case INVALID_MOVE:
                 return "the move you made is not valid for the current game phase.";
             case TILE_DOES_NOT_EXIST:
-                return "such a tile doesn't exist.";
+                return "tile &p doesn't exist.";
             case TILE_IS_FULL:
-                return "requested target tile(s) is full.";
+                return "tile &p is full.";
             case TILE_UNREACHABLE:
-                return "there's no path to the requested tile.";
+                return "there's no direct path to the tile &p.";
             case NO_DIRECT_PATH:
-                return "there's no direct path between the two given coordinates.";
+                return "there's no direct path between the two given coordinates &p.";
             case INVALID_BAR:
-                return "the bar you played is not closest option to rolled dice.";
+                return "the bar you played is not closest option to rolled dice. Bars you can play are &p.";
             case INVALID_PLACEMENT:
                 return "the bar you played cannot be placed on requested coordinates.";
             case PATH_TOO_LONG:
-                return "the number of steps you entered is higher than the last placed bar length.";
+                return "the number of steps you entered is higher than the last placed bar length."
+                        + "The longest possible move is &p";
             default:
                 return "something happened.";
         }
