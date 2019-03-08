@@ -1,4 +1,4 @@
-package edu.kit.informatik;
+package com.cameloper.jUbar;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -1,4 +1,4 @@
-package edu.kit.informatik;
+package com.cameloper.jUbar;
 
 /**
  * Type used to pass results around

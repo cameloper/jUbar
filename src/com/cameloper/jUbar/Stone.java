@@ -1,4 +1,4 @@
-package edu.kit.informatik;
+package com.cameloper.jUbar;
 
 class Stone extends Figure {
     /**

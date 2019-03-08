@@ -1,8 +1,8 @@
-package edu.kit.informatik;
+package com.cameloper.jUbar;
 
 class Bar extends Figure {
     /**
-     * On-Board Position of the Bar
+     * On-Board Position of the Bar.
      */
     private Vector2D position;
     /**
