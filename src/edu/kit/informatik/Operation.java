@@ -67,7 +67,9 @@ final class Operation {
             assert parameterType != null;
             if ((parameters.length != parameterType.numberOfParams())
                     && (!parameterType.numberIsOptional() || parameters.length < 1)) {
-                return new Result<>(null, Error.INVALID_NUMBER_OF_PARAMETERS);
+                return new Result<>(null,
+                        Error.INVALID_NUMBER_OF_PARAMETERS,
+                        String.valueOf(parameterType.numberOfParams()));
             }
 
             for (String parameter : parameters) {
@@ -91,7 +93,7 @@ final class Operation {
 
             return new Result<>(parameters.length, null);
         } catch (NullPointerException exception) {
-            return new Result<>(null, Error.INVALID_NUMBER_OF_PARAMETERS);
+            return new Result<>(null, Error.INVALID_NUMBER_OF_PARAMETERS, "UNKNOWN");
         }
     }
 
@@ -159,7 +161,7 @@ final class Operation {
 
         Result<Void> result = Game.current.roll(symbol);
         if (result.isSuccessful()) return new Result<>(OK_STRING, null);
-        else return new Result<>(null, Error.OTHER);
+        else return new Result<>(null, result.error, result.errorParameter);
     }
 
     private Result<String> state() {
@@ -195,7 +197,7 @@ final class Operation {
             Point2D targetCoordinates = Point2D.parse(parameters[0]);
             Result<Void> result = Game.current.place(targetCoordinates);
             if (result.isSuccessful()) return new Result<>(OK_STRING, null);
-            else return new Result<>(null, result.error);
+            else return new Result<>(null, result.error, result.errorParameter);
         } catch (NumberFormatException exception) {
             return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
         }
@@ -212,7 +214,7 @@ final class Operation {
             Vector2D vector = new Vector2D(head, end);
             Result<Void> result = Game.current.place(vector);
             if (result.isSuccessful()) return new Result<>(OK_STRING, null);
-            else return new Result<>(null, result.error);
+            else return new Result<>(null, result.error, result.errorParameter);
         } catch (NumberFormatException exception) {
             return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
         }
@@ -228,7 +230,7 @@ final class Operation {
 
             Result<Void> result = Game.current.move(stepCoordinates);
             if (result.isSuccessful()) return new Result<>(OK_STRING, null);
-            else return new Result<>(null, result.error);
+            else return new Result<>(null, result.error, result.errorParameter);
         } catch (NumberFormatException exception) {
             return new Result<>(null, Error.INVALID_PARAMETER_FORMATTING);
         }

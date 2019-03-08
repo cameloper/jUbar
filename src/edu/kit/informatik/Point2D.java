@@ -106,4 +106,9 @@ class Point2D {
 
         return point2D.x == x && point2D.y == y;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%d;%d", y, x);
+    }
 }
