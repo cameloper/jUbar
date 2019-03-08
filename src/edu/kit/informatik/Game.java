@@ -201,7 +201,7 @@ final class Game {
         Bar bar = missionControl.barWith(enteredSymbol);
         Tile[] tiles = board.getTiles(path);
 
-        if (!Arrays.stream(tiles).anyMatch(Objects::nonNull)) return new Result<>(null, Error.BAR_OUT_OF_BOARD);
+        if (Arrays.stream(tiles).noneMatch(Objects::nonNull)) return new Result<>(null, Error.BAR_OUT_OF_BOARD);
 
         for (Tile tile : tiles) {
             if (tile == null && enteredSymbol != Symbol.DAWN) {
@@ -241,6 +241,8 @@ final class Game {
         if (!tiles[0].isNeighborOf(currentTile)) {
             return new Result<>(null, Error.TILE_UNREACHABLE, tiles[0].getPosition().toString());
         }
+
+        if (tiles[0].isFull()) return new Result<>(null, Error.TILE_IS_FULL, tiles[0].getPosition().toString());
 
         for (int i = 0; i < tiles.length - 1; i++) {
             Tile tileX = tiles[i];
