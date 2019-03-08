@@ -98,14 +98,11 @@ class Point2D {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
+        if (this == obj) return true;
 
         if (obj.getClass() != getClass()) return false;
 
         Point2D point2D = (Point2D) obj;
-        if (point2D == null) return false;
 
         return point2D.x == x && point2D.y == y;
     }

@@ -124,6 +124,8 @@ enum Command {
                 return subphase == Phase.Subphase.II;
             case MOVE:
                 return subphase == Phase.Subphase.III;
+            case SHOW_RESULT:
+                return subphase == Phase.Subphase.END;
             default:
                 return true;
         }

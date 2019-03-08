@@ -3,7 +3,7 @@ package edu.kit.informatik;
 import java.util.*;
 
 class Board {
-    private Tile[] tiles;
+    private final Tile[] tiles;
 
     /**
      * Default constructor for {@link Board}
@@ -55,7 +55,6 @@ class Board {
      * @return All reachable tiles
      */
     Tile[] getReachablePoints(Point2D point, Stone.Type type) {
-        Point2D[] neighbors = point.neighbors();
         markReachablePoints(point, type);
 
         return Arrays.stream(tiles).filter(t -> t.getMarkedFor(type)).toArray(Tile[]::new);

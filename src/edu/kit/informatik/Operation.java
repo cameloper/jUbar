@@ -235,6 +235,8 @@ final class Operation {
     }
 
     private Result<String> showResult() {
+        if (Game.current.getPhase() != Phase.END) return new Result<>(null, Error.INVALID_MOVE);
+
         Result<Integer> result = Game.current.showResult();
         return new Result<>(String.format("%d", result.value), null);
     }

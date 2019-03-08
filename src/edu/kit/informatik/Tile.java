@@ -38,7 +38,6 @@ class Tile {
                 markedForVesta = true;
                 break;
             default:
-                return;
         }
     }
 
@@ -116,16 +115,11 @@ class Tile {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
+        if (this == obj) return true;
 
         if (obj.getClass() != getClass()) return false;
 
         Tile tile = (Tile) obj;
-        if (tile == null) {
-            return false;
-        }
 
         return position.equals(tile.position);
     }
