@@ -1,6 +1,6 @@
 package edu.kit.informatik;
 
-import java.util.*;
+import java.util.Arrays;
 
 class Board {
     private final Tile[] tiles;
