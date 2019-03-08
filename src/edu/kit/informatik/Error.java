@@ -50,6 +50,10 @@ enum Error {
      */
     INVALID_BAR,
     /**
+     * Bar is completely out of board
+     */
+    BAR_OUT_OF_BOARD,
+    /**
      * Bar is out of the board etc.
      */
     INVALID_PLACEMENT,
@@ -84,6 +88,8 @@ enum Error {
                 return "there's no direct path to the tile &p.";
             case NO_DIRECT_PATH:
                 return "there's no direct path between the two given coordinates &p.";
+            case BAR_OUT_OF_BOARD:
+                return "at least the head or the end of the DAWN bar must be on the board!";
             case INVALID_BAR:
                 return "the bar you played is not closest option to rolled dice. Bars you can play are &p.";
             case INVALID_PLACEMENT:
