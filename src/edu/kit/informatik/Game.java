@@ -116,9 +116,9 @@ final class Game {
         if (stone == null) return new Result<>(null, Error.OTHER);
 
         Tile tile = board.getTile(target);
-        if (tile == null) return new Result<>(null, Error.TILE_DOES_NOT_EXIST);
+        if (tile == null) return new Result<>(null, Error.TILE_DOES_NOT_EXIST, target.toString());
 
-        if (tile.isFull()) return new Result<>(null, Error.TILE_IS_FULL);
+        if (tile.isFull()) return new Result<>(null, Error.TILE_IS_FULL, target.toString());
 
         Point2D oldPosition = stone.getPosition();
         if (oldPosition != null) {
@@ -149,13 +149,13 @@ final class Game {
     /**
      * Gives the current state of requested tile
      *
-     * @param point Requested tile coordinations
+     * @param point Requested tile coordinates
      * @return Result with "-" for empty, "+" for MC Bars, "V" or "C" for Nature stones
      */
     Result<String> stateOf(Point2D point) {
         Tile tile = board.getTile(point);
         if (tile == null) {
-            return new Result<>(null, Error.TILE_DOES_NOT_EXIST);
+            return new Result<>(null, Error.TILE_DOES_NOT_EXIST, point.toString());
         }
 
         String value = tile.toString();
@@ -182,14 +182,18 @@ final class Game {
     Result<Void> place(Vector2D position) {
         Point2D[] path = position.directPath();
         if (path == null) {
-            return new Result<>(null, Error.NO_DIRECT_PATH);
+            return new Result<>(null, Error.NO_DIRECT_PATH, position.toString());
         }
 
         Symbol enteredSymbol = Symbol.initWith(path.length);
 
         ArrayList<Symbol> allowedSymbols = missionControl.closestAvailableTo(lastRolledDice);
         if (!allowedSymbols.contains(enteredSymbol)) {
-            return new Result<>(null, Error.INVALID_BAR);
+            StringBuilder allowedSymbolsString = new StringBuilder();
+            for (Symbol symbol : allowedSymbols) {
+                allowedSymbolsString.append(symbol.toString());
+            }
+            return new Result<>(null, Error.INVALID_BAR, allowedSymbolsString.toString());
         }
 
         Bar bar = missionControl.barWith(enteredSymbol);
@@ -199,7 +203,7 @@ final class Game {
             if (tile == null && enteredSymbol != Symbol.DAWN) {
                 return new Result<>(null, Error.INVALID_PLACEMENT);
             } else if (tile != null && tile.isFull()) {
-                return new Result<>(null, Error.TILE_IS_FULL);
+                return new Result<>(null, Error.TILE_IS_FULL, tile.getPosition().toString());
             }
         }
 
@@ -223,20 +227,23 @@ final class Game {
         if (stone == null) return new Result<>(null, Error.OTHER);
 
         if (steps.length > lastPlacedBar.length()) {
-            return new Result<>(null, Error.PATH_TOO_LONG);
+            return new Result<>(null, Error.PATH_TOO_LONG, String.valueOf(lastPlacedBar.length()));
         }
 
         Tile currentTile = board.getTile(stone.getPosition());
         Tile[] tiles = board.getTiles(steps);
         Tile newPosition = tiles[tiles.length - 1];
 
-        if (!tiles[0].isNeighborOf(currentTile)) return new Result<>(null, Error.TILE_UNREACHABLE);
+        if (!tiles[0].isNeighborOf(currentTile)) {
+            return new Result<>(null, Error.TILE_UNREACHABLE, tiles[0].getPosition().toString());
+        }
+
         for (int i = 0; i < tiles.length - 1; i++) {
             Tile tileX = tiles[i];
             Tile tileY = tiles[i + 1];
             if (!tileY.isAvailableNeighborOf(tileX)
                 && !(tileY.equals(currentTile) && tileY.isNeighborOf(tileX))) {
-                return new Result<>(null, Error.TILE_UNREACHABLE);
+                return new Result<>(null, Error.TILE_UNREACHABLE, tileY.getPosition().toString());
             }
         }
 
@@ -245,5 +252,28 @@ final class Game {
         stone.setPosition(newPosition.getPosition());
 
         return new Result<>(null, null);
+    }
+
+    /**
+     * Does a BFS and returns result
+     *
+     * @return Result with an integer
+     */
+    Result<Integer> showResult() {
+        Point2D vestaPosition = nature.getVesta().getPosition();
+        Point2D ceresPosition = nature.getCeres().getPosition();
+
+        int fV = board.getReachablePoints(vestaPosition, Stone.Type.VESTA).length; // Playroom of vesta
+        int fC = board.getReachablePoints(ceresPosition, Stone.Type.CERES).length; // Playroom of ceres
+
+        // E = max{F (C), F (V )} + [max{F (C), F (V )} − min{F (C), F (V )}]
+
+        int maxF = Math.max(fC, fV);
+        int minF = Math.min(fC, fV);
+
+        int result = maxF + (maxF - minF);
+
+        return new Result<>(result, null);
+
     }
 }

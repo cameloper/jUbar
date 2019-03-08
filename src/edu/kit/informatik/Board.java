@@ -27,13 +27,7 @@ class Board {
             return null;
         }
 
-        for (Tile tile : tiles) {
-            if (tile.getPosition().equals(point)) {
-                return tile;
-            }
-        }
-
-        return null;
+        return Arrays.stream(tiles).filter(t -> t.getPosition().equals(point)).findFirst().orElse(null);
     }
 
     /**
@@ -44,6 +38,38 @@ class Board {
      */
     Tile[] getTiles(Point2D[] points) {
         return Arrays.stream(points).map(this::getTile).toArray(Tile[]::new);
+    }
+
+    private Tile getIfAvailable(Point2D point2D) {
+        Tile tile = getTile(point2D);
+        if (tile == null) return null;
+        return tile.isFull() ? null : tile;
+    }
+
+    /**
+     * Does a BFS and returns results
+     *
+     * @param point Center point
+     * @param type  For which type of stone the BFS will be
+     *              executed
+     * @return All reachable tiles
+     */
+    Tile[] getReachablePoints(Point2D point, Stone.Type type) {
+        markReachablePoints(point, type);
+
+        return Arrays.stream(tiles).filter(t -> t.getMarkedFor(type)).toArray(Tile[]::new);
+
+    }
+
+    private void markReachablePoints(Point2D point2D, Stone.Type type) {
+        Point2D[] neighbors = point2D.neighbors();
+        for (Point2D neighbor : neighbors) {
+            Tile tile = getIfAvailable(neighbor);
+            if (tile != null && !tile.getMarkedFor(type)) {
+                tile.setMarkedFor(type);
+                markReachablePoints(neighbor, type);
+            }
+        }
     }
 
     @Override

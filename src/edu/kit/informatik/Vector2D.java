@@ -64,4 +64,8 @@ class Vector2D {
         return out;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s and %s", head, end);
+    }
 }

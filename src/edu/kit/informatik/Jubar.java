@@ -24,7 +24,7 @@ class Jubar {
         Result<Operation> parsingResult = Operation.buildWith(input);
 
         if (!parsingResult.isSuccessful()) {
-            Terminal.printError(parsingResult.error.toString());
+            Terminal.printError(parsingResult.errorMessage());
             return;
         }
 
@@ -32,7 +32,7 @@ class Jubar {
         Result<Integer> validationResult = operation.validate();
 
         if (!validationResult.isSuccessful()) {
-            Terminal.printError(validationResult.error.toString());
+            Terminal.printError(validationResult.errorMessage());
             return;
         }
 
@@ -41,6 +41,6 @@ class Jubar {
             if (operationResult.value != null) {
                 Terminal.printLine(operationResult.value);
             }
-        } else Terminal.printError(operationResult.error.toString());
+        } else Terminal.printError(operationResult.errorMessage());
     }
 }
